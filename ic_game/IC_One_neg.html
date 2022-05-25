@@ -1,0 +1,20 @@
+{{ block content }}
+<html>
+<body>
+<p>
+    {{ if player.ic_teilnahme == True }}
+        Sie sind das einzige Mitglied Ihrer Gruppe, das sich für eine Verhandlungsteilnahme entschieden hat. Deshalb
+        entfällt die Verhandlungsphase. Sie werden nun direkt weitergeleitet zu der Beitragsentscheidung über Ihren
+        Beitrag zum Gruppenprojekt.
+    {{ endif }}
+    {{ if player.ic_teilnahme == False }}
+        Nur ein Mitglied Ihrer Gruppe hat sich für eine Verhandlungsteilnahme entschieden. Deshalb
+        entfällt die Verhandlungsphase. Sie werden nun direkt weitergeleitet zu der Beitragsentscheidung über Ihren
+        Beitrag zum Gruppenprojekt.
+    {{ endif }}
+</p>
+
+{{ next_button }}
+</body>
+</html>
+{{ endblock }}

@@ -1,0 +1,64 @@
+{{ block content }}
+<html>
+<body>
+<p>
+    Sie haben hier die Möglichkeit, hypothetische Verhandlungs-Ergebnisse und Gruppenprojekt-Beiträge auszuprobieren,
+    um sich näher mit den Regeln und Möglichkeiten der Verhandlung vertraut zu machen. <br>
+    Sie können Verhandlungsteilnahme, vorgeschlagene Verpflichtungen und Beiträge der Spieler*innen beliebig variieren.
+    So können Sie die Auswirkungen auf die Auszahlungen beobachten. Es sind alle geraden Cent-Beträge zwischen 0 und
+    100 als Angaben zulässig.
+</p>
+
+</p>
+<table class="table" style="width:650px">
+    <tr>
+        <th> </th>
+        <th> <b>Teilnahme</b> </th>
+        <th> <b>Verpflichtung</b> </th>
+        <th> <b>Beitrag</b> </th>
+        <th> <b>Auszahlung</b> </th>
+    </tr>
+    <tr>
+        <th> Spieler*in A </th>
+        <th> {{ form.sim_a_participation }} </th>
+        <th> {{ form.sim_a_commitment }} </th>
+        <th> {{ form.sim_a_contribution }}</th>
+        <th>  </th>
+    </tr>
+    <tr>
+        <th> Spieler*in B </th>
+        <th> {{ form.sim_b_participation }} </th>
+        <th>  {{ form.sim_b_commitment }} </th>
+        <th> {{ form.sim_b_contribution }}</th>
+        <th>  </th>
+    </tr>
+    <tr>
+        <th> Spieler*in C </th>
+        <th> {{ form.sim_c_participation }} </th>
+        <th> {{ form.sim_c_commitment }} </th>
+        <th> {{ form.sim_c_contribution }}</th>
+        <th>  </th>
+    </tr>
+    <tr>
+        <th> Spieler*in D </th>
+        <th> {{ form.sim_d_participation }} </th>
+        <th> {{ form.sim_d_commitment }} </th>
+        <th> {{ form.sim_d_contribution }}</th>
+        <th>  </th>
+    </tr>
+</table>
+<br><br>
+<table class="table" style="width: 300px">
+    <tr>
+        <th> Summe der Beiträge </th>
+        <th> Verdopplung der Beiträge </th>
+    </tr>
+    <tr style="background-color: lightgray">
+        <th>200</th>
+        <th>400</th>
+    </tr>
+</table>
+{{ next_button }}
+</body>
+</html>
+{{ endblock }}

@@ -1,0 +1,92 @@
+{{ block content }}
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+    <div class="w3-container">
+        <p align="right">
+            <button type="button" onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Instruktionen erneut anzeigen</button>
+        </p>
+        <div id="id01" class="w3-modal">
+            <div class="w3-modal-content">
+                <header class="w3-container w3-black">
+                <span onclick="document.getElementById('id01').style.display='none'"
+                class="w3-button w3-display-topright">&times;</span>
+                <h2>Instruktionen</h2>
+                </header>
+                <div style="margin-top: 15px;" class="w3-container">
+                    <p>
+                        Sie haben im Folgenden die Möglichkeit, an einer Verhandlung innerhalb ihrer Vierer-Gruppe teilzunehmen. In der
+                        Verhandlung können die Gruppenmitglieder individuelle Verpflichtungen eingehen, die die Beiträge ins Gruppenprojekt
+                        der vier Gruppenmitglieder festlegen. Der Verhandlungsprozess besteht aus drei Stufen: Teilnahme, Verhandlung und
+                        Verpflichtung. Anschließend folgt der Beitrag ins Gruppenprojekt und die Auszahlung.
+                        <br><br>
+                        <img src="{{ static 'bilder/IC_Verlauf.png' }}" width="720px"/>
+                        <br> <br>
+                        <u>Teilnahme:</u> Alle Gruppenmitglieder können sich unabhängig entscheiden, ob sie an der Verhandlung teilnehmen
+                        wollen oder nicht. Wenn Sie sich gegen eine Teilnahme an der Verhandlung entscheiden, haben Sie keine Möglichkeit
+                        sich an der Verhandlung sowie Verpflichtung zu beteiligen oder Informationen über die Verhandlung zu erhalten. Ihr
+                        Beitrag ist nicht Verhandlungsgegenstand.  Alle Mitglieder werden darüber informiert, wer an der Verhandlung
+                        teilnimmt. Sie bleiben dabei anonym, z.B. als „Spieler*in A“.
+                        <br><br>
+                        <u>Verhandlung:</u> Verhandlungsteilnehmer*innen haben drei Minuten Zeit, Vorschläge für eine Verpflichtung
+                        auszutauschen. Die Verpflichtung spezifiziert einen Mindestbeitrag zwischen 0 und 100 Cent, den Sie bereit sind
+                        zum gemeinsamen Gruppenprojekt beizutragen. Jede*r Verhandlungsteilnehmer*in schlägt individuelle Verpflichtungen
+                        vor, die sich lediglich auf den eigenen Beitrag beziehen. (Vorschläge für Verpflichtungen anderer Gruppenmitglieder
+                        sind nicht möglich.) Vorschläge sind für alle Verhandlungsteilnehmer*innen sofort sichtbar und können innerhalb der
+                        Verhandlungszeit jederzeit geändert werden.
+                        <br><br>
+                        <u>Verpflichtung:</u> Nach Ablauf der drei Minuten werden die Verhandlungsteilnehmer*innen aufgefordert, unabhängig
+                        voneinander einen letzten Vorschlag zu machen. Jede*r Verhandlungsteilnehmer*in ist danach an den Beitrag, den
+                        er*sie für sich selbst vorgeschlagen hat, gebunden. Das heißt, dass mindestens der Betrag der individuellen
+                        Verpflichtung zum Gruppenprojekt beigetragen werden muss. (Gruppenmitglieder, die nicht an der Verhandlung
+                        teilnehmen, unterliegen keiner Verpflichtung.)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+<p>
+    Ihre Eingabe war nicht korrekt, dies ist nun Ihre letzte Eingabe-Möglichkeit. Bitte denken Sie noch einmal über
+    Ihre Antwort nach. Wenn Sie Fragen zum Verhandlungsformat haben, können Sie Ihre Hand heben, um die Versuchsleitung
+    zu Ihnen zu bitten.<br><br>
+    Beispiel:<br>
+    Alle Gruppenmitglieder nehmen an der Verhandlung teil. Die Verhandlungs-Teilnehmer*innen schlagen folgende
+    Verpflichtungen vor: <br>
+</p>
+<table class="table" style="width:320px">
+    <tr>
+        <th> Spieler*in A </th>
+        <th> 30 Cent </th>
+    </tr>
+    <tr style="background-color: cornsilk">
+        <th> Spieler*in B </th>
+        <th> 80 Cent </th>
+    </tr>
+    <tr>
+        <th> Spieler*in C </th>
+        <th> 80 Cent </th>
+    </tr>
+    <tr style="background-color: cornsilk">
+        <th> Spieler*in D </th>
+        <th> 60 Cent </th>
+    </tr>
+</table>
+{{ if player.ic_compr_a1 != 30 and player.ic_compr2_a1 != 30 }}
+    {{ formfield player.ic_compr3_a1 label="Wie hoch ist der verbindliche Mindestbeitrag für Spieler*in A?" }}
+{{ endif }}
+{{ if player.ic_compr_a2 != 80 and player.ic_compr2_a2 != 80 }}
+    {{ formfield player.ic_compr3_a2 label="Wie viel muss Spieler*in B mindestens beitragen?" }}
+{{ endif }}
+{{ if player.ic_compr_a3 != 100 and player.ic_compr2_a3 != 100 }}
+    {{ formfield player.ic_compr3_a3 label="Wie viel darf Spieler*in B maximal beitragen?" }}
+{{ endif }}
+{{ if player.ic_compr_a4 != 50 and player.ic_compr2_a4 != 50 }}
+    {{ formfield player.ic_compr3_a4 label="Wie viel muss Spieler*in A mindestens beitragen, wenn Spieler*in A seinen*ihren Vorschlag für eine Verpflichtung von 30 auf 50 Cent erhöht?" }}
+{{ endif }}
+
+{{ next_button }}
+</body>
+
+{{ endblock }}

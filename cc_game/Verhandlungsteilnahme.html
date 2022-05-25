@@ -1,0 +1,106 @@
+{{ block styles }}
+<style>
+		.svo-error-display {
+			display: none;
+    		text-align: center;
+    		padding: 30px;
+    		color: red;
+    		margin: 30px;
+		}
+	</style>
+{{ endblock }}
+
+{{ block content }}
+<body>
+<p>
+    Vielen Dank!<br><br>
+    Nun wird die reale Verhandlungsphase Ihrer Gruppe stattfinden. Sie können sich frei entscheiden, ob Sie
+    teilnehmen wollen.<br><br>
+
+</p>
+
+<div class="svo-error-display">
+			Sie müssen eine Antwort abgeben, um fortfahren zu können.
+</div>
+
+<div class="slidecontainer">
+			{{ formfield_errors 'willingness' }}
+            Bitte geben Sie auf dem folgenden Schieberegler ihre Bereitschaft, an der Verhandlung teilzunehmen, an:<br>
+			<br>
+            <table>
+                <th style="width:300px; text-align: right;">
+                    <i>Ich möchte auf gar keinen Fall an <br> der Verhandlung teilnehmen</i>
+                </th>
+                <th style="width:350px; text-align: center">
+                    <input name="willingness" min="0" max="100" value="50" type="range" style="width:300px;"/>
+                </th>
+                <th style="width:300px; text-align: left;">
+                    <i>Ich möchte auf jeden Fall an der Verhandlung teilnehmen</i>
+                </th>
+            </table>
+</div>
+<br><br>
+<p>
+    Bitte entscheiden Sie sich nun: <br>
+    Möchten Sie an der Verhandlung teilnehmen?
+</p>
+{{ form.teilnahme }}
+
+{{ next_button }}
+</body>
+{{endblock}}
+
+
+{{ block scripts }}
+    <script>
+
+		var nSliders = 0;
+		var sliderSolved;
+
+		function allSolved() {
+			for(i = 0; i < nSliders; i++) {
+				if( !sliderSolved[i] ) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		function makeSliderListener(sli,sll,idx) {
+			var ret = function() {
+				sliderSolved[idx] = true;
+			};
+			return ret;
+		}
+
+		function initSlider(cntr) {
+			var slider_input = cntr.find("input");
+			var slider_label = cntr.find("span");
+			slider_input.on("input", makeSliderListener(slider_input, slider_label, nSliders) );
+			nSliders++;
+		}
+
+        function checkSliders(event) {
+			if(!allSolved()) {
+				event.preventDefault();
+				$(".svo-error-display").css("display","block");
+				$('html, body').animate({scrollTop: ($(".svo-error-display").first().offset().top)},500);
+			}
+		}
+
+		function initAllSliders(){
+			$(".slidecontainer").each( function() { initSlider( $( this ) ); } );
+
+			sliderSolved = new Array(nSliders);
+			for( i=0; i < nSliders; i++) {
+				sliderSolved[i] = false;
+			}
+
+
+			$(".otree-btn-next").on("click", checkSliders )
+		}
+
+		window.onload = initAllSliders;
+	</script>
+
+{{ endblock }}

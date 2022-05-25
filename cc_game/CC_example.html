@@ -1,0 +1,44 @@
+{{ block content }}
+<html>
+<body>
+<p>
+    Das im Folgenden dargestellte Beispiel dient der Erläuterung des Verhandlungsformats:<br>
+    <img src="{{ static 'bilder/ccSpielerC_40.png' }}" width="720px"/>
+    <br>
+    Spieler*in A, Spieler*in B und Spieler*in C nehmen an der Verhandlung teil – Spieler*in D nicht. Die
+    Verhandlungsteilnehmer*innen haben nach den 3 Minuten der Verhandlungszeit die oben dargestellten Verpflichtungen
+    vorgeschlagen.
+    <br><br>
+    Der Vorschlag von Spieler*in C ist am niedrigsten und wird darum für Spieler*innen A, B und C verbindlich.
+    Jede*r muss also nur 40 Cent investieren – auch die Teilnehmer*innen, die eine höhere Mindestinvestition
+    vorgeschlagen haben. Spieler*innen A, B und C dürfen auch mehr als 40 Cent beitragen, es handelt sich schließlich
+    um eine verpflichtende <i>Mindestinvestition</i>. Spieler*in D hingegen kann frei einen Beitrag wählen, auch eine
+    Investition von 0 Cent wäre möglich.
+    <br><br>
+    Um die Auswirkungen des Verhandlungsergebnisses auf Ihre Auszahlung zu verdeutlichen, folgende alternativen Szenarien:
+    <br><br><br>
+    Wenn Spieler*in C, mit dem niedrigsten Angebot, den Verpflichtungs-Vorschlag von 40 auf 50 Cent erhöht, müssen
+    <i>alle</i> Verhandlungsteilnehmer*innen 10 mehr investieren. Dadurch erhöht sich die Auszahlung von Spieler*in C
+    sowie aller anderen Gruppenmitglieder:
+    <br>
+    <img src="{{ static 'bilder/ccSpielerC_50.png' }}" width="720px"/>
+    <br>
+    Wenn Spieler*in C dagegen die niedrigste Mindestinvestition auf 30 Cent reduziert, dann müssen <i>alle</i>
+    Verhandlungs-Teilnehmer*innen nur noch 30 Cent investieren. In diesem Fall reduziert sich die Auszahlung aller
+    Teilnehmer*innen:
+    <br>
+    <img src="{{ static 'bilder/ccSpielerC_30.png' }}" width="720px"/>
+    <br>
+    Die Auszahlungen aller Gruppenmitglieder sind am größten, wenn eine Mindestinvestition von 100 Cent verbindlich wird
+    und alle 4 Gruppenmitglieder an der Verhandlung teilnehmen:
+    <br>
+    <img src="{{ static 'bilder/ccalle100.png' }}" width="720px"/>
+    <br>
+    Zusammenfassend bedeutet dies: Die eigene Auszahlung ist umso größer, je höher die Investitionssumme insgesamt und
+    je niedriger Ihre eigene Investition ist.
+</p>
+
+{{ next_button }}
+</body>
+</html>
+{{ endblock }}

@@ -1,0 +1,92 @@
+{{ block content }}
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<body>
+
+    <div class="w3-container">
+        <p align="right">
+            <button type="button" onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-black">Instruktionen erneut anzeigen</button>
+        </p>
+        <div id="id01" class="w3-modal">
+            <div class="w3-modal-content">
+                <header class="w3-container w3-black">
+                <span onclick="document.getElementById('id01').style.display='none'"
+                class="w3-button w3-display-topright">&times;</span>
+                <h2>Instruktionen</h2>
+                </header>
+                <div style="margin-top: 15px;" class="w3-container">
+                    <p>
+                        Sie haben im Folgenden die Möglichkeit, an einer Verhandlung innerhalb ihrer Vierer-Gruppe teilzunehmen. In der
+                        ins Gruppenprojekt aller Gruppenmitglieder, die an der Verhandlung teilnehmen, festlegt. Der Verhandlungsprozess
+                        besteht aus drei Stufen: Teilnahme, Verhandlung und Verpflichtung. Anschließend folgt der Beitrag ins
+                        Gruppenprojekt und die Auszahlung.
+                        Verhandlung können sich die Gruppenmitglieder auf eine <b>gemeinsame Verpflichtung</b> einigen, die die Investition
+                        <br> <br>
+                        <img src="{{ static 'bilder/CC_Verlauf.png' }}" width="720px"/>
+                        <br> <br>
+                        <u>Teilnahme:</u> Im ersten Schritt entscheiden sich alle Gruppenmitglieder unabhängig voneinander, ob sie an der
+                        Verhandlung teilnehmen wollen oder nicht. Wenn Sie sich gegen eine Teilnahme entscheiden, haben sie keine
+                        Möglichkeit sich an der Verhandlung sowie Verpflichtung zu beteiligen oder Verhandlungsinhalte einzusehen. Ihre
+                        Investitionen sind nicht Verhandlungsgegenstand. Alle Mitglieder werden darüber informiert, wer an der Verhandlung
+                        teilnimmt. Sie bleiben dabei anonym, z.B. als „Spieler*in A“.
+                        <br><br>
+                        <u>Verhandlung:</u> Verhandlungsteilnehmer*innen haben drei Minuten Zeit, Vorschläge für eine gemeinsame
+                        Verpflichtung auszutauschen. Die Verpflichtung spezifiziert eine Mindestinvestition zwischen 0 und 100 Cent, die
+                        für alle Verhandlungsteilnehmer*innen gleich ist. Jede*r Verhandlungsteilnehmer*in schlägt Verpflichtungen vor, die
+                        sich auf die Beiträge aller Verhandlungsteilnehmer*innen beziehen. (Für Gruppenmitglieder, die nicht an der
+                        Verhandlung teilnehmen, gilt diese Verpflichtung nicht.) Vorschläge sind für alle Verhandlungsteilnehmer sofort
+                        sichtbar und können innerhalb der Verhandlungszeit jederzeit geändert werden.
+                        <br><br>
+                        <u>Verpflichtung:</u> Nach Ablauf der drei Minuten werden die Verhandlungsteilnehmer*innen aufgefordert, unabhängig
+                        voneinander einen letzten Vorschlag zu machen. Der Vorschlag mit der niedrigsten Mindestinvestition wird für alle
+                        verhandelnden Mitglieder verbindlich, d.h. alle Mitglieder müssen mindestens so viel ins gemeinsame Gruppenprojekt
+                        investieren wie die niedrigste Mindestinvestition vorgibt. Gruppenmitglieder, die nicht an der Verhandlung
+                        teilnehmen, sind von dieser Verpflichtung ausgeschlossen.
+                        <br> <br>
+                        Beachten Sie: Je höher die verbindliche Mindestinvestition, desto mehr müssen alle Verhandlungsteilnehmer*innen
+                        investieren, wovon alle Gruppenmitglieder profitieren. Wenn Sie die niedrigste Mindestinvestition vorgeschlagen
+                        haben, dann führt Ihr Vorschlag zu einer geringeren Investitionsverpflichtung aller Verhandlungsteilnehmer*innen,
+                        was allen Gruppenmitgliedern (Sie selbst eingeschlossen) schadet. Ein höherer Vorschlag erhöht die Verpflichtung
+                        aller Teilnehmer*innen, was allen Teilnehmer*innen (einschließlich Ihnen selbst) nützt. Sie müssen bei einem hohen
+                        Vorschlag auch niemals Sorge haben, dass Sie mehr investieren müssen als die anderen Verhandlungsteilnehmer. Sie
+                        werden niemals verpflichtet, mehr zu investieren als der Verhandlungsteilnehmer mit dem niedrigsten Vorschlag.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+<p>
+    Ihre Eingabe war nicht korrekt. Bitte denken Sie noch einmal über Ihre Antwort nach. Wenn Sie Fragen zum
+    Verhandlungsformat haben, können Sie Ihre Hand heben, um die Versuchsleitung zu Ihnen zu bitten. <br><br>
+    Beispiel:<br>
+    Spieler*in A und Spieler*in D nehmen an der Verhandlung teil – Spieler*innen B und C nicht. Die
+    Verhandlungs-Teilnehmer*innen schlagen folgende Verpflichtungen vor: <br>
+</p>
+<table class="table" style="width:320px">
+    <tr>
+        <th> Spieler*in A </th>
+        <th> 40 Cent </th>
+    </tr>
+    <tr style="background-color: cornsilk">
+        <th> Spieler*in D </th>
+        <th> 80 Cent </th>
+    </tr>
+</table>
+{{ if player.compr_b1 != 40 }}
+    {{ formfield player.compr2_b1 label="Wie viel muss Spieler*in D mindestens beitragen?" }}
+{{ endif }}
+{{ if player.compr_b2 != 0 }}
+    {{ formfield player.compr2_b2 label="Wie viel muss Spieler*in B mindestens beitragen?" }}
+{{ endif }}
+{{ if player.compr_b3 != 100 }}
+    {{ formfield player.compr2_b3 label="Wie viel kann Spieler*in B maximal beitragen?" }}
+{{ endif }}
+{{ if player.compr_b4 != 20 }}
+    {{ formfield player.compr2_b4 label="Wie viel muss Spieler*in A mindestens beitragen, wenn Spieler*in D sein*ihr Angebot von 80 Cent auf 20 Cent reduziert?" }}
+{{ endif }}
+
+{{ next_button }}
+</body>
+</html>
+{{ endblock }}

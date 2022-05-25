@@ -1,0 +1,112 @@
+{{ block styles }}
+    <style>
+        tr:nth-child(even) {background-color: #f2f2f2;}
+    </style>
+
+{{ endblock }}
+{{ block content }}
+<body>
+<p>
+    Sie sind <span style="color:steelblue"> Spieler*in {{ player.id_in_group }}</span>.<br>
+    Weitere teilnehmende Spieler*innen sind: {{ if player.id_in_group != 1 and p1_participated }} Spieler*in A {{ endif }}
+    {{ if player.id_in_group != 2 and p2_participated }} Spieler*in B  {{ endif }}
+    {{ if player.id_in_group != 3 and p3_participated }} Spieler*in C  {{ endif }}
+    {{ if player.id_in_group != 4 and p4_participated }} Spieler*in D  {{ endif }}. <br>
+    Jede*r Spieler*in verfügt über einen Betrag von {{ C.ENDOWMENT }}.<br><br>
+</p>
+<table class="table" style="width:650px">
+    <tr>
+      <th>Spieler*in</th>
+      <th>Vorschlag</th>
+    </tr>
+    {{ if p1_participated }}
+        <tr>
+            <td>{{ if player.id_in_group == 1 }} <span style="color:steelblue">Spieler*in A (Sie)</span> {{ else }} Spieler*in A {{ endif }}</td>
+            <td id="Player1" ></td>
+        </tr>
+    {{ endif }}
+    {{ if p2_participated }}
+        <tr>
+            <td>{{ if player.id_in_group == 2 }} <span style="color:steelblue">Spieler*in B (Sie)</span> {{ else }} Spieler*in B {{ endif }}</td>
+            <td id="Player2" ></td>
+        </tr>
+    {{ endif }}
+    {{ if p3_participated }}
+        <tr>
+            <td>{{ if player.id_in_group == 3 }} <span style="color:steelblue">Spieler*in C (Sie)</span> {{ else }} Spieler*in C {{ endif }}</td>
+            <td id="Player3" ></td>
+        </tr>
+    {{ endif }}
+    {{ if p4_participated }}
+        <tr>
+            <td>{{ if player.id_in_group == 4 }} <span style="color:steelblue">Spieler*in D (Sie)</span> {{ else }} Spieler*in D {{ endif }}</td>
+            <td id="Player4" ></td>
+        </tr>
+    {{ endif }}
+</table>
+<p> Mein persönlicher Mindestbeitrag sollte bei
+<input id="inputbox" type="number" min="0" max="100" style="width: 42px" >
+    liegen.
+<button type="button" onclick="sendValue();">Senden</button>
+</p>
+<script>
+
+  let Player1 = document.getElementById('Player1');
+  let Player2 = document.getElementById('Player2');
+  let Player3 = document.getElementById('Player3');
+  let Player4 = document.getElementById('Player4');
+  let inputbox = document.getElementById('inputbox');
+
+  window.onload = initFunction;
+
+  function initFunction() {
+      if(js_vars.player_id==1) {
+          Player1.style.color = "steelblue";
+      }
+      if(js_vars.player_id==2) {
+          Player2.style.color="steelblue";
+      }
+      if(js_vars.player_id==3) {
+          Player3.style.color="steelblue";
+      }
+      if(js_vars.player_id==4) {
+          Player4.style.color="steelblue";
+      }
+  }
+
+  function liveRecv(data) {
+      if(data.id_in_group==1) {
+          Player1.innerHTML = data.bid;
+      }
+      if(data.id_in_group==2) {
+          Player2.innerHTML = data.bid;
+      }
+      if(data.id_in_group==3) {
+          Player3.innerHTML = data.bid;
+      }
+      if(data.id_in_group==4) {
+          Player4.innerHTML = data.bid;
+      }
+  }
+
+  function sendValue() {
+    if(inputbox.value>0&&inputbox.value<101){
+        liveSend(parseInt(inputbox.value));
+    }
+    else{
+        alert("Bitte geben Sie eine Zahl zwischen 0 und 100 ein");
+    }
+    if(inputbox.value%2==0){
+        liveSend(parseInt(inputbox.value));
+    }
+    else{
+        alert("Bitte geben Sie eine gerade Zahl ein");
+    }
+  }
+
+</script>
+<br><br>
+
+</body>
+
+{{ endblock }}
