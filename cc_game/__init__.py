@@ -148,20 +148,6 @@ def set_participants(group: Group):
 
 
 # PAGES
-class LivePage(Page):
-    @staticmethod
-    def live_method(player, data):
-        import datetime
-        import csv
-        with open('_static/chat/chat.csv', mode='a') as csvfile:
-            chat = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-            chat.writerow([player.session.code, player.group.id_in_subsession, player.id_in_group, player.participant.label, datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S"), data])
-        with open('_static/chat/chat.csv', mode='r+') as file:
-            lines = file.readlines()
-            file.seek(0)
-            file.truncate()
-            file.writelines(lines[:-1])
-
 
 class CC_instructions(Page):
     def before_next_page(player, timeout_happened):
@@ -382,9 +368,20 @@ class CC_Chat(Page):
 
     @staticmethod
     def live_method(player, bid):
+        import datetime
+        import csv
+        with open('_static/chat/chat.csv', mode='a') as csvfile:
+            chat = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            chat.writerow(
+                [player.session.code, player.group.id_in_subsession, player.id_in_group, player.participant.label,
+                 datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S"), bid])
+        # with open('_static/chat/chat.csv', mode='r+') as file:
+        # lines = file.readlines()
+        # file.seek(0)
+        # file.truncate()
+        # file.writelines(lines[:-1])
         my_id = player.id_in_group
         response = dict(id_in_group=my_id, bid=bid)
-        import datetime
         time = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
         Minimum.create(player=player, amount=bid, time=time)
         return {0: response}
@@ -506,7 +503,6 @@ class Results(Page):
 
 
 page_sequence = [
-    LivePage,
     CC_instructions,
     CC_example,
     CC_Simulation,

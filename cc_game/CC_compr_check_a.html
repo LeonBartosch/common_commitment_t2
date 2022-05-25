@@ -1,3 +1,9 @@
+{{ block styles }}
+    <style>
+        tr:nth-child(even) {background-color: #f2f2f2;}
+    </style>
+
+{{ endblock }}
 {{ block content }}
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -67,7 +73,7 @@
             <th> Spieler*in A </th>
             <th> 30 Cent </th>
         </tr>
-        <tr style="background-color: cornsilk">
+        <tr>
             <th> Spieler*in B </th>
             <th> 80 Cent </th>
         </tr>
@@ -75,7 +81,7 @@
             <th> Spieler*in C </th>
             <th> 80 Cent </th>
         </tr>
-        <tr style="background-color: cornsilk">
+        <tr>
             <th> Spieler*in D </th>
             <th> 60 Cent </th>
         </tr>
