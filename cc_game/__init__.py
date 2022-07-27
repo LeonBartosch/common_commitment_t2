@@ -92,6 +92,10 @@ class Player(BasePlayer):
     )
     willingness = models.FloatField(min=0, max=100)
     time_end = models.StringField()
+    filler_motives = models.LongStringField(
+        label='Bitte beschreiben Sie im hier, warum Sie sich gegen eine Teilnahme an der Verhandlung entschieden haben:',
+        blank=True,
+    )
 
 
 class Minimum(ExtraModel):
@@ -370,12 +374,12 @@ class CC_Chat(Page):
     def live_method(player, bid):
         import datetime
         import csv
-        with open('_static/chat/chat.csv', mode='a') as csvfile:
+        with open('_static/chat/cc_chat.csv', mode='a') as csvfile:
             chat = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             chat.writerow(
                 [player.session.code, player.group.id_in_subsession, player.id_in_group, player.participant.label,
                  datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S"), bid])
-        # with open('_static/chat/chat.csv', mode='r+') as file:
+        # with open('_static/chat/cc_chat.csv', mode='r+') as file:
         # lines = file.readlines()
         # file.seek(0)
         # file.truncate()
@@ -471,6 +475,9 @@ class Contribute(Page):
 
 
 class Filler_task(Page):
+    form_model = 'player'
+    form_fields = ['filler_motives']
+
     def before_next_page(player, timeout_happened):
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")

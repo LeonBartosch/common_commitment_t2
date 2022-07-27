@@ -1,3 +1,9 @@
+{{ block styles }}
+    <style>
+        tr:nth-child(even) {background-color: #f2f2f2;}
+    </style>
+
+{{ endblock }}
 {{ block content }}
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,7 +28,7 @@
                         der vier Gruppenmitglieder festlegen. Der Verhandlungsprozess besteht aus drei Stufen: Teilnahme, Verhandlung und
                         Verpflichtung. Anschließend folgt der Beitrag ins Gruppenprojekt und die Auszahlung.
                         <br><br>
-                        <img src="{{ static 'bilder/IC_Verlauf.png' }}" width="720px"/>
+                        <img src="{{ static 'bilder/IC_Verlauf_crop.png' }}" width="720px"/>
                         <br> <br>
                         <u>Teilnahme:</u> Alle Gruppenmitglieder können sich unabhängig entscheiden, ob sie an der Verhandlung teilnehmen
                         wollen oder nicht. Wenn Sie sich gegen eine Teilnahme an der Verhandlung entscheiden, haben Sie keine Möglichkeit
@@ -48,7 +54,7 @@
         </div>
     </div>
 <p>
-    Ihre Eingabe war nicht korrekt, dies ist nun Ihre letzte Eingabe-Möglichkeit. Bitte denken Sie noch einmal über
+    Ihre Eingabe war nicht korrekt, dies ist nun <b>Ihre letzte Eingabe-Möglichkeit</b>. Bitte denken Sie noch einmal über
     Ihre Antwort nach. Wenn Sie Fragen zum Verhandlungsformat haben, können Sie Ihre Hand heben, um die Versuchsleitung
     zu Ihnen zu bitten.<br><br>
     Beispiel:<br>
@@ -60,7 +66,7 @@
         <th> Spieler*in A </th>
         <th> 40 Cent </th>
     </tr>
-    <tr style="background-color: cornsilk">
+    <tr>
         <th> Spieler*in D </th>
         <th> 80 Cent </th>
     </tr>

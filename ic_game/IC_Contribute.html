@@ -22,12 +22,12 @@
         erhalten Sie persönlich also im Endeffekt {{ C.Eigenanteil }}%. <br><br>
 
     {{ if player.teilnahme == True }}Ihr festgelegter Mindestbeitrag beträgt
-    <b>{{ player.ic_last_proposal }}</b>. {{ endif }}
+    <b>{{ player.last_proposal }}</b>. {{ endif }}
 </p>
 
 <p>
     {{ if player.teilnahme == True }}
-        Sie können also nun einen beliebigen geraden Betrag zwischen {{ player.ic_last_proposal }} und {{ C.ENDOWMENT }}
+        Sie können also nun einen beliebigen geraden Betrag zwischen {{ player.last_proposal }} und {{ C.ENDOWMENT }}
         beitragen.
     {{ else }}
         Sie können also nun einen beliebigen Betrag geraden zwischen 0 und {{ C.ENDOWMENT }} beitragen.

@@ -74,6 +74,10 @@ class Player(BasePlayer):
         choices=[[True, 'Ja'], [False, 'Nein'], ],
         label="Möchten Sie an der Verhandlung über einen gemeinsamen Mindestbeitrag teilnehmen?"
     )
+    filler_motives = models.LongStringField(
+        label='Bitte beschreiben Sie im hier, warum Sie sich gegen eine Teilnahme an der Verhandlung entschieden haben:',
+        blank=True,
+    )
 
 class Minimum(ExtraModel):
     player = models.Link(Player)
@@ -321,9 +325,20 @@ class IC_Chat(Page):
 
     @staticmethod
     def live_method(player, bid):
+        import datetime
+        import csv
+        with open('_static/chat/ic_chat.csv', mode='a') as csvfile:
+            chat = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            chat.writerow(
+                [player.session.code, player.group.id_in_subsession, player.id_in_group, player.participant.label,
+                 datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S"), bid])
+        # with open('_static/chat/ic_chat.csv', mode='r+') as file:
+        # lines = file.readlines()
+        # file.seek(0)
+        # file.truncate()
+        # file.writelines(lines[:-1])
         my_id = player.id_in_group
         response = dict(id_in_group=my_id, bid=bid)
-        import datetime
         time = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
         Minimum.create(player=player, amount=bid, time=time)
         return {0: response}
@@ -393,14 +408,17 @@ class IC_Contribute(Page):
     @staticmethod
     def vars_for_template(player: Player):
         return dict(
-            p1_participated=player.group.get_player_by_id(1).ic_teilnahme,
-            p2_participated=player.group.get_player_by_id(2).ic_teilnahme,
-            p3_participated=player.group.get_player_by_id(3).ic_teilnahme,
-            p4_participated=player.group.get_player_by_id(4).ic_teilnahme
+            p1_participated=player.group.get_player_by_id(1).teilnahme,
+            p2_participated=player.group.get_player_by_id(2).teilnahme,
+            p3_participated=player.group.get_player_by_id(3).teilnahme,
+            p4_participated=player.group.get_player_by_id(4).teilnahme
         )
 
 
 class Filler_task(Page):
+    form_model = 'player'
+    form_fields = ['filler_motives']
+
     def before_next_page(player, timeout_happened):
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
@@ -429,5 +447,13 @@ class Results(Page):
 
 
 
-page_sequence = [Verhandlungsteilnahme, Chat_Waitpage, IC_Chat, IC_One_neg, No_neg,
-                 IC_Last_proposal, IC_Contribute, Filler_task, ResultsWaitPage, Results]
+page_sequence = [
+    IC_instructions,
+    IC_example,
+    IC_compr_check_a, IC_compr_check2_a, IC_compr_check3_a,
+    IC_compr_check_b, IC_compr_check2_b, IC_compr_check3_b,
+    Verhandlungsteilnahme, Verhandlungsziel_Waitpage, IC_Verhandlungsziel,
+    Chat_Waitpage, IC_Chat, IC_One_neg, No_neg, IC_Last_proposal,
+    IC_Contribute,
+    Filler_task,
+    ResultsWaitPage, Results]

@@ -90,17 +90,14 @@
   }
 
   function sendValue() {
-    if(inputbox.value>0&&inputbox.value<101){
-        liveSend(parseInt(inputbox.value));
-    }
-    else{
+    if(inputbox.value<0 || inputbox.value>100){
         alert("Bitte geben Sie eine Zahl zwischen 0 und 100 ein");
     }
-    if(inputbox.value%2==0){
-        liveSend(parseInt(inputbox.value));
+    else if(inputbox.value%2!=0){
+        alert("Bitte geben Sie eine gerade Zahl ein");
     }
     else{
-        alert("Bitte geben Sie eine gerade Zahl ein");
+        liveSend(parseInt(inputbox.value));
     }
   }
 
