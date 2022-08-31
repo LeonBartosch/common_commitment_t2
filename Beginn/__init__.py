@@ -23,6 +23,7 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     einverstaendnis = models.BooleanField(blank=True)
     time_end = models.StringField()
+    code = models.StringField()
 
 # PAGES
 class Begruessung(Page):
@@ -49,10 +50,24 @@ class Einwilligung(Page):
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 
-        with open('LabIds/Participated.txt', 'a') as file:
-            if(player.participant.label != "1234555"):
-                file.write('\n')
-                file.write(player.participant.label)
+        #with open('LabIds/Participated.txt', 'a') as file:
+            #if(player.participant.label != "1234555"):
+                #file.write('\n')
+                #file.write(player.participant.label)
+
+
+class Code_Eingabe(Page):
+    form_model = 'player'
+    form_fields = ['code']
+
+    @staticmethod
+    def error_message(player, values):
+        if len(values['code']) !=6:
+            return 'Ihr Code muss sechsstellig sein'
+
+    def before_next_page(player, timeout_happened):
+        import datetime
+        player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 
 
 class Ueberleitung(Page):
@@ -86,4 +101,5 @@ class Pgg_scenario3(Page):
 
 
 
-page_sequence = [Begruessung, Informedconsent, Einwilligung, Ueberleitung, Pgg_scenario1, Pgg_scenario2, Pgg_scenario3]
+page_sequence = [Begruessung, Informedconsent, Einwilligung, Code_Eingabe, Ueberleitung,
+                 Pgg_scenario1, Pgg_scenario2, Pgg_scenario3]

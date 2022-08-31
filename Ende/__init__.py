@@ -72,10 +72,10 @@ class Seriousness_check(Page):
             print(txt)
             txt += 1
             print(txt)
-        if (player.participant.label != "1234555"):
-            if player.srsn_check_pass & player.use_data:
-                with open('LabIds/CountParticipation.txt', 'w') as file:
-                    file.write(str(txt))
+        #if (player.participant.label != "1234555"):
+        if player.srsn_check_pass & player.use_data:
+            with open('LabIds/CountParticipation.txt', 'w') as file:
+                file.write(str(txt))
 
 
 class Debriefing(Page):

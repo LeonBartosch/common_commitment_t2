@@ -7,11 +7,12 @@
 {{ block content }}
 <body>
 <p>
-    Sie sind <span style="color:steelblue"> Spieler*in {{ player.id_in_group }}</span>.<br>
-    Weitere teilnehmende Spieler*innen sind: {{ if player.id_in_group != 1 and p1_participated }} Spieler*in A {{ endif }}
-    {{ if player.id_in_group != 2 and p2_participated }} Spieler*in B  {{ endif }}
-    {{ if player.id_in_group != 3 and p3_participated }} Spieler*in C  {{ endif }}
-    {{ if player.id_in_group != 4 and p4_participated }} Spieler*in D  {{ endif }}. <br>
+    Sie sind <span style="color:steelblue"> {{ player.role }}</span>.<br>
+    Weitere teilnehmende Spieler*innen sind:<br>
+    {{ if player.id_in_group != 1 and p1_participated }} Spieler*in A<br>{{ endif }}
+    {{ if player.id_in_group != 2 and p2_participated }} Spieler*in B<br>{{ endif }}
+    {{ if player.id_in_group != 3 and p3_participated }} Spieler*in C<br>{{ endif }}
+    {{ if player.id_in_group != 4 and p4_participated }} Spieler*in D<br>{{ endif }}<br>
     Jede*r Spieler*in verfügt über einen Betrag von {{ C.ENDOWMENT }}.<br><br>
 </p>
 <table class="table" style="width:650px">

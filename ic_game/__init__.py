@@ -29,10 +29,23 @@ class Group(BaseGroup):
     public_good_total = models.CurrencyField()
     lowest_proposer = models.StringField()
     lowest_proposal = models.CurrencyField()
-    ic_num_negotiators = models.FloatField()
+    num_negotiators = models.FloatField()
+    num_contributed = models.FloatField()
 
 
 class Player(BasePlayer):
+    sim_a_participation = models.IntegerField(choices=[[1, 'Ja'], [2, 'Nein'], ], blank=True)
+    sim_b_participation = models.IntegerField(choices=[[1, 'Ja'], [2, 'Nein'], ], blank=True)
+    sim_c_participation = models.IntegerField(choices=[[1, 'Ja'], [2, 'Nein'], ], blank=True)
+    sim_d_participation = models.IntegerField(choices=[[1, 'Ja'], [2, 'Nein'], ], blank=True)
+    sim_a_commitment = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
+    sim_b_commitment = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
+    sim_c_commitment = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
+    sim_d_commitment = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
+    sim_a_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
+    sim_b_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
+    sim_c_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
+    sim_d_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
     ic_compr_a1 = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
     ic_compr_a2 = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
     ic_compr_a3 = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
@@ -65,6 +78,9 @@ class Player(BasePlayer):
     contribution = models.CurrencyField(min=0, max=C.ENDOWMENT,
                                         label="Bitte geben sie den Betrag an, den sie beisteuern wollen:"
                                         )
+    contribution_check = models.BooleanField(
+        initial=False
+    )
     last_proposal = models.CurrencyField(
         max=C.ENDOWMENT, label="Dieser Wert ist mein Mindestbeitrag:"
     )
@@ -99,10 +115,18 @@ def custom_export(players):
 
 def set_participants(group: Group):
     players = group.get_players()
-    group.ic_num_negotiators = 0
+    group.num_negotiators = 0
     for p in players:
         if p.teilnahme:
-            group.ic_num_negotiators += 1
+            group.num_negotiators += 1
+
+
+def set_contributors(group: Group):
+    players = group.get_players()
+    group.num_contributed = 0
+    for p in players:
+        if p.contribution_check:
+            group.num_contributed += 1
 
 
 def set_payoffs(group: Group):
@@ -127,6 +151,16 @@ class IC_instructions(Page):
 
 
 class IC_example(Page):
+    def before_next_page(player, timeout_happened):
+        import datetime
+        player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+
+class IC_Simulation(Page):
+    form_model = 'player'
+    form_fields = ['sim_a_participation', 'sim_b_participation', 'sim_c_participation', 'sim_d_participation',
+                   'sim_a_commitment', 'sim_b_commitment', 'sim_c_commitment', 'sim_d_commitment',
+                   'sim_a_contribution', 'sim_b_contribution', 'sim_c_contribution', 'sim_d_contribution']
+
     def before_next_page(player, timeout_happened):
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
@@ -287,7 +321,7 @@ class IC_Verhandlungsziel(Page):
 
     @staticmethod
     def is_displayed(player):
-        return player.teilnahme == True and player.group.ic_num_negotiators >= 2
+        return player.teilnahme == True and player.group.num_negotiators >= 2
     @staticmethod
     def error_message(player, values):
         if values['verhandlungsziel'] is None:
@@ -302,6 +336,9 @@ class Chat_Waitpage(WaitPage):
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 
+    @staticmethod
+    def is_displayed(player):
+        return player.teilnahme == True and player.group.num_negotiators >= 2
 
 class IC_Chat(Page):
     timeout_seconds = 60
@@ -321,7 +358,7 @@ class IC_Chat(Page):
 
     @staticmethod
     def is_displayed(player):
-        return player.teilnahme == True and player.group.ic_num_negotiators >= 2
+        return player.teilnahme == True and player.group.num_negotiators >= 2
 
     @staticmethod
     def live_method(player, bid):
@@ -356,13 +393,13 @@ class IC_One_neg(Page):
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
     @staticmethod
     def is_displayed(player):
-        return player.group.ic_num_negotiators == 1
+        return player.teilnahme == True and player.group.num_negotiators == 1
 
 
 class No_neg(Page):
     @staticmethod
     def is_displayed(player):
-        return player.group.ic_num_negotiators == 0
+        return player.group.num_negotiators == 0
     def before_next_page(player, timeout_happened):
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
@@ -384,16 +421,12 @@ class IC_Last_proposal(Page):
 
     @staticmethod
     def is_displayed(player):
-        return player.teilnahme == True and player.group.ic_num_negotiators >= 2
+        return player.teilnahme == True and player.group.num_negotiators >= 2
 
 
 class IC_Contribute(Page):
     form_model = 'player'
     form_fields = ['contribution']
-
-    def before_next_page(player, timeout_happened):
-        import datetime
-        player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 
     @staticmethod
     def error_message(player, values):
@@ -414,6 +447,13 @@ class IC_Contribute(Page):
             p4_participated=player.group.get_player_by_id(4).teilnahme
         )
 
+    @staticmethod
+    def before_next_page(player, timeout_happened):
+        if player.contribution != None:
+            player.contribution_check = True
+        import datetime
+        player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+        set_contributors(player.group)
 
 class Filler_task(Page):
     form_model = 'player'
@@ -425,16 +465,20 @@ class Filler_task(Page):
 
     @staticmethod
     def is_displayed(player):
-        return player.teilnahme == False and player.group.ic_num_negotiators >= 2
+        return player.teilnahme == False and player.group.num_negotiators >= 2
 
 
 class ResultsWaitPage(WaitPage):
-    after_all_players_arrive = set_payoffs
+    template_name = 'ic_game/ResultsWaitPage.html'
+    #after_all_players_arrive = set_payoffs
 
     def before_next_page(player, timeout_happened):
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 
+    @staticmethod
+    def is_displayed(player):
+        return player.group.num_contributed < 4
 
 class Results(Page):
     def before_next_page(player, timeout_happened):
@@ -443,15 +487,16 @@ class Results(Page):
 
     @staticmethod
     def vars_for_template(player: Player):
+        set_payoffs(player.group)
         return dict(others=player.get_others_in_group())
 
 
 
 page_sequence = [
-    IC_instructions,
-    IC_example,
-    IC_compr_check_a, IC_compr_check2_a, IC_compr_check3_a,
-    IC_compr_check_b, IC_compr_check2_b, IC_compr_check3_b,
+    #IC_instructions,IC_example,
+    #IC_Simulation,
+    #IC_compr_check_a, IC_compr_check2_a, IC_compr_check3_a,
+    #IC_compr_check_b, IC_compr_check2_b, IC_compr_check3_b,
     Verhandlungsteilnahme, Verhandlungsziel_Waitpage, IC_Verhandlungsziel,
     Chat_Waitpage, IC_Chat, IC_One_neg, No_neg, IC_Last_proposal,
     IC_Contribute,
