@@ -56,7 +56,7 @@
 <p>
     Ihre Eingabe war nicht korrekt, dies ist nun <b>Ihre letzte Eingabe-Möglichkeit</b>. Bitte denken Sie noch einmal über
     Ihre Antwort nach. Wenn Sie Fragen zum Verhandlungsformat haben, können Sie Ihre Hand heben, um die Versuchsleitung
-    zu Ihnen zu bitten.<br><br>
+    zu Ihnen zu bitten. Bitte denken Sie daran, die Beträge in Cent anzugeben.<br><br>
     Beispiel:<br>
     Alle Gruppenmitglieder nehmen an der Verhandlung teil. Die Verhandlungs-Teilnehmer*innen schlagen folgende
     Verpflichtungen vor: <br>
@@ -64,32 +64,32 @@
 <table class="table" style="width:320px">
     <tr>
         <th> Spieler*in A </th>
-        <th> 30 Cent </th>
+        <th> 3€ </th>
     </tr>
     <tr>
         <th> Spieler*in B </th>
-        <th> 80 Cent </th>
+        <th> 6€ </th>
     </tr>
     <tr>
         <th> Spieler*in C </th>
-        <th> 80 Cent </th>
+        <th> 7€ </th>
     </tr>
     <tr>
         <th> Spieler*in D </th>
-        <th> 60 Cent </th>
+        <th> 6€ </th>
     </tr>
 </table>
-{{ if player.ic_compr_a1 != 30 and player.ic_compr2_a1 != 30 }}
+{{ if player.ic_compr_a1 != 300 and player.ic_compr2_a1 != 300 }}
     {{ formfield player.ic_compr3_a1 label="Wie hoch ist der verbindliche Mindestbeitrag für Spieler*in A?" }}
 {{ endif }}
-{{ if player.ic_compr_a2 != 80 and player.ic_compr2_a2 != 80 }}
+{{ if player.ic_compr_a2 != 600 and player.ic_compr2_a2 != 600 }}
     {{ formfield player.ic_compr3_a2 label="Wie viel muss Spieler*in B mindestens beitragen?" }}
 {{ endif }}
-{{ if player.ic_compr_a3 != 100 and player.ic_compr2_a3 != 100 }}
+{{ if player.ic_compr_a3 != 800 and player.ic_compr2_a3 != 800 }}
     {{ formfield player.ic_compr3_a3 label="Wie viel darf Spieler*in B maximal beitragen?" }}
 {{ endif }}
-{{ if player.ic_compr_a4 != 50 and player.ic_compr2_a4 != 50 }}
-    {{ formfield player.ic_compr3_a4 label="Wie viel muss Spieler*in A mindestens beitragen, wenn Spieler*in A seinen*ihren Vorschlag für eine Verpflichtung von 30 auf 50 Cent erhöht?" }}
+{{ if player.ic_compr_a4 != 500 and player.ic_compr2_a4 != 500 }}
+    {{ formfield player.ic_compr3_a4 label="Wie viel muss Spieler*in A mindestens beitragen, wenn Spieler*in A seinen*ihren Vorschlag für eine Verpflichtung von 300 auf 500 Cent erhöht?" }}
 {{ endif }}
 
 {{ next_button }}

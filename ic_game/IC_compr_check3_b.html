@@ -56,7 +56,7 @@
 <p>
     Ihre Eingabe war nicht korrekt, dies ist nun <b>Ihre letzte Eingabe-Möglichkeit</b>. Bitte denken Sie noch einmal über
     Ihre Antwort nach. Wenn Sie Fragen zum Verhandlungsformat haben, können Sie Ihre Hand heben, um die Versuchsleitung
-    zu Ihnen zu bitten.<br><br>
+    zu Ihnen zu bitten. Bitte denken Sie daran, die Beträge in Cent anzugeben.<br><br>
     Beispiel:<br>
     Spieler*in A und Spieler*in D nehmen an der Verhandlung teil – Spieler*innen B und C nicht. Die
     Verhandlungs-Teilnehmer*innen schlagen folgende Verpflichtungen vor:<br>
@@ -64,20 +64,20 @@
 <table class="table" style="width:320px">
     <tr>
         <th> Spieler*in A </th>
-        <th> 40 Cent </th>
+        <th> 2€ </th>
     </tr>
     <tr>
         <th> Spieler*in D </th>
-        <th> 80 Cent </th>
+        <th> 6€ </th>
     </tr>
 </table>
-{{ if player.ic_compr_b1 != 80 and player.ic_compr2_b1 != 80 }}
+{{ if player.ic_compr_b1 != 80 and player.ic_compr2_b1 != 600 }}
     {{ formfield player.ic_compr3_b1 label="Wie viel muss Spieler*in D mindestens beitragen?" }}
 {{ endif }}
 {{ if player.ic_compr_b2 != 0 and player.ic_compr2_b2 != 0 }}
     {{ formfield player.ic_compr3_b2 label="Wie viel muss Spieler*in B mindestens beitragen?" }}
 {{ endif }}
-{{ if player.ic_compr_b3 != 100 and player.ic_compr2_b3 != 100 }}
+{{ if player.ic_compr_b3 != 100 and player.ic_compr2_b3 != 800 }}
     {{ formfield player.ic_compr3_b3 label="Wie viel kann Spieler*in B maximal beitragen?" }}
 {{ endif }}
 

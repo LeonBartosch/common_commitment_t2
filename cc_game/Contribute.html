@@ -16,22 +16,20 @@
             {{ if p4_participated }} <li> Spieler*in D </li> {{ endif }}
         </ol>
         {{ endif }}
-        Nun investieren alle Spieler*innen ihren Beitrag.<br>
-        In jeder Gruppe befinden sich <b>{{ C.PLAYERS_PER_GROUP }} Spieler*innen</b>,
-        welche alle zu Beginn <b>mit {{ C.ENDOWMENT }} ausgestattet</b> sind.<br>
-        Jeder beigesteuerte Cent wird <b>mit {{ C.MULTIPLIER }} multipliziert</b> und anschließend gleichmäßig auf
-        alle 4 Gruppenmitglieder aufgeteilt. Von allen Beträgen, die Ihre Mitspieler*innen und Sie beisteuern,
-        erhalten Sie persönlich also im Endeffekt {{ C.Eigenanteil }}%. <br>
+        Alle 4 Gruppenmitglieder sind mit <b>8€</b> ausgestattet.<br>
+        Jeder beigesteuerte Euro wird <b>verdoppelt</b> und anschließend gleichmäßig auf alle 4 Gruppenmitglieder aufgeteilt.
+        Man bekommt pro beigetragene 2€ nur einen Euro zurück.
+
 
         {{ if player.teilnahme == True and player.group.num_negotiators >= 2 }}Der kleinste Vorschlag für einen Mindestbeitrag ihrer Verhandlungsgruppe
         beträgt  <b>{{ group.lowest_proposal}}</b>. {{ endif }}
-    </p>
+    </br>
 
 <p>
     {{ if player.teilnahme == True and player.group.num_negotiators >= 2 }}
-    Sie können also nun einen beliebigen geraden Betrag zwischen {{ group.lowest_proposal}} und {{ C.ENDOWMENT }} beitragen.
+    Sie können also nun einen beliebigen Betrag zwischen {{ group.lowest_proposal}} und {{ C.ENDOWMENT }} beitragen.
     {{ else }}
-    Sie können also nun einen beliebigen geraden Betrag zwischen 0 und {{ C.ENDOWMENT }} beitragen.
+    Sie können also nun einen beliebigen Betrag zwischen 0 und {{ C.ENDOWMENT }} beitragen.
     {{ endif }}
 </p>
 

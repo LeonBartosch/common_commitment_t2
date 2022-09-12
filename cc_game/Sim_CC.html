@@ -21,11 +21,12 @@
 <html>
     <body>
         <p>
-            Sie haben hier die Möglichkeit, hypothetische Verhandlungs-Ergebnisse und Gruppenprojekt-Beiträge auszuprobieren,
-            um sich näher mit den Regeln und Möglichkeiten der Verhandlung vertraut zu machen. <br>
-            Sie können Verhandlungsteilnahme, vorgeschlagene Verpflichtungen und Beiträge der Spieler*innen beliebig variieren.
-            So können Sie die Auswirkungen auf die Auszahlungen beobachten. Es sind alle geraden Cent-Beträge zwischen 0 und
-            100 als Angaben zulässig.
+            Sie haben hier die Möglichkeit, hypothetische Verhandlungs-Ergebnisse und Gruppenprojekt-Beiträge
+            auszuprobieren, um sich näher mit den Regeln und Möglichkeiten der Verhandlung vertraut zu machen.<br>
+            Sie können Verhandlungsteilnahme, vorgeschlagene Verpflichtungen und Beiträge der Gruppenmitglieder
+            beliebig variieren. So können Sie die Auswirkungen auf die Auszahlungen beobachten. Es sind alle
+            geraden Cent-Beträge zwischen 0 und 800 als Angaben zulässig.
+
         </p>
 
         <table class="table" style="width:650px">
@@ -132,10 +133,10 @@
 
         lowest_commitment = "";
 
-        formInputs.sim_a_contribution.value = Math.max(Math.min(parseInt(formInputs.sim_a_contribution.value),100),0);
-        formInputs.sim_b_contribution.value = Math.max(Math.min(parseInt(formInputs.sim_b_contribution.value),100),0);
-        formInputs.sim_c_contribution.value = Math.max(Math.min(parseInt(formInputs.sim_c_contribution.value),100),0);
-        formInputs.sim_d_contribution.value = Math.max(Math.min(parseInt(formInputs.sim_d_contribution.value),100),0);
+        formInputs.sim_a_contribution.value = Math.max(Math.min(parseInt(formInputs.sim_a_contribution.value),800),0);
+        formInputs.sim_b_contribution.value = Math.max(Math.min(parseInt(formInputs.sim_b_contribution.value),800),0);
+        formInputs.sim_c_contribution.value = Math.max(Math.min(parseInt(formInputs.sim_c_contribution.value),800),0);
+        formInputs.sim_d_contribution.value = Math.max(Math.min(parseInt(formInputs.sim_d_contribution.value),800),0);
 
         if(formInputs.sim_a_contribution.value == "")
             contribution_a = 0;
@@ -156,43 +157,43 @@
 
         if(formInputs.sim_a_participation.value == 1) {
             formInputs.sim_a_commitment.disabled = false;
-            formInputs.sim_a_commitment.value = Math.max(Math.min(parseInt(formInputs.sim_a_commitment.value),100),0);
+            formInputs.sim_a_commitment.value = Math.max(Math.min(parseInt(formInputs.sim_a_commitment.value),800),0);
             commitment_a = formInputs.sim_a_commitment.value;
         }
         else {
             formInputs.sim_a_commitment.disabled = true;
             formInputs.sim_a_commitment.value = "";
-            commitment_a = 100;
+            commitment_a = 800;
         }
         if (formInputs.sim_b_participation.value == 1) {
             formInputs.sim_b_commitment.disabled = false;
-            formInputs.sim_b_commitment.value = Math.max(Math.min(parseInt(formInputs.sim_b_commitment.value),100),0);
+            formInputs.sim_b_commitment.value = Math.max(Math.min(parseInt(formInputs.sim_b_commitment.value),800),0);
             commitment_b = formInputs.sim_b_commitment.value;
         }
         else {
             formInputs.sim_b_commitment.disabled = true;
             formInputs.sim_b_commitment.value = "";
-            commitment_b = 100;
+            commitment_b = 800;
         }
         if (formInputs.sim_c_participation.value == 1) {
             formInputs.sim_c_commitment.disabled = false;
-            formInputs.sim_c_commitment.value = Math.max(Math.min(parseInt(formInputs.sim_c_commitment.value),100),0);
+            formInputs.sim_c_commitment.value = Math.max(Math.min(parseInt(formInputs.sim_c_commitment.value),800),0);
             commitment_c = formInputs.sim_c_commitment.value;
         }
         else {
             formInputs.sim_c_commitment.disabled = true;
             formInputs.sim_c_commitment.value = "";
-            commitment_c = 100;
+            commitment_c = 800;
         }
         if (formInputs.sim_d_participation.value == 1) {
             formInputs.sim_d_commitment.disabled = false;
-            formInputs.sim_d_commitment.value = Math.max(Math.min(parseInt(formInputs.sim_d_commitment.value),100),0);
+            formInputs.sim_d_commitment.value = Math.max(Math.min(parseInt(formInputs.sim_d_commitment.value),800),0);
             commitment_d = formInputs.sim_d_commitment.value;
         }
         else {
             formInputs.sim_d_commitment.disabled = true;
             formInputs.sim_d_commitment.value = "";
-            commitment_d = 100;
+            commitment_d = 800;
         }
 
         lowest_commitment = Math.min(commitment_a,Math.min(commitment_b,Math.min(commitment_c,commitment_d)));
@@ -211,10 +212,10 @@
             document.getElementById("range_error").style.display = "block";
         }
 
-        payoff_a = 100 - contribution_a + (contribution_a + contribution_b + contribution_c + contribution_d) * 0.5
-        payoff_b = 100 - contribution_b + (contribution_a + contribution_b + contribution_c + contribution_d) * 0.5
-        payoff_c = 100 - contribution_c + (contribution_a + contribution_b + contribution_c + contribution_d) * 0.5
-        payoff_d = 100 - contribution_d + (contribution_a + contribution_b + contribution_c + contribution_d) * 0.5
+        payoff_a = 800 - contribution_a + (contribution_a + contribution_b + contribution_c + contribution_d) * 0.5
+        payoff_b = 800 - contribution_b + (contribution_a + contribution_b + contribution_c + contribution_d) * 0.5
+        payoff_c = 800 - contribution_c + (contribution_a + contribution_b + contribution_c + contribution_d) * 0.5
+        payoff_d = 800 - contribution_d + (contribution_a + contribution_b + contribution_c + contribution_d) * 0.5
 
         document.getElementById("payoff_player_a").textContent = payoff_a;
         document.getElementById("payoff_player_b").textContent = payoff_b;

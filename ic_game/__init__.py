@@ -10,7 +10,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'ic_game'
     PLAYERS_PER_GROUP = 4
     NUM_ROUNDS = 1
-    ENDOWMENT = cu(100)
+    ENDOWMENT = cu(800)
     MULTIPLIER = 2
     Eigenanteil = MULTIPLIER / 4 * 100
     P1_ROLE = 'Spieler*in A'
@@ -73,7 +73,7 @@ class Player(BasePlayer):
         initial=False)
     verhandlungsziel = models.CurrencyField(
         min=0, max=C.ENDOWMENT,
-        label="Welchen Wert würden Sie gerne als persönlichen Mindestbeitrag in der folgenden Verhandlung erreichen?"
+        label="Wie hoch sollte Ihr persönlicher Mindestbeitrag in der folgenden Verhandlung am Ende ausfallen? "
     )
     contribution = models.CurrencyField(min=0, max=C.ENDOWMENT,
                                         label="Bitte geben sie den Betrag an, den sie beisteuern wollen:"
@@ -155,7 +155,7 @@ class IC_example(Page):
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 
-class IC_Simulation(Page):
+class Sim_IC(Page):
     form_model = 'player'
     form_fields = ['sim_a_participation', 'sim_b_participation', 'sim_c_participation', 'sim_d_participation',
                    'sim_a_commitment', 'sim_b_commitment', 'sim_c_commitment', 'sim_d_commitment',
@@ -177,8 +177,8 @@ class IC_compr_check_a(Page):
             return 'Bitte füllen Sie alle Felder aus.'
 
     def before_next_page(player, timeout_happened):
-        if player.ic_compr_a1 == 30 and player.ic_compr_a2 == 80 and player.ic_compr_a3 == 100 \
-                and player.ic_compr_a4 == 50:
+        if player.ic_compr_a1 == 300 and player.ic_compr_a2 == 600 and player.ic_compr_a3 == 800 \
+                and player.ic_compr_a4 == 500:
             player.ic_compr_check_a_pass = True
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
@@ -193,17 +193,17 @@ class IC_compr_check2_a(Page):
         return player.ic_compr_check_a_pass == False
 
     def error_message(player, values):
-        if (values['ic_compr2_a1'] is None and player.ic_compr_a1 != 30) \
-                or (values['ic_compr2_a2'] is None and player.ic_compr_a2 != 80) \
-                or (values['ic_compr2_a3'] is None and player.ic_compr_a3 != 100) \
-                or (values['ic_compr2_a4'] is None and player.ic_compr_a4 != 50):
+        if (values['ic_compr2_a1'] is None and player.ic_compr_a1 != 300) \
+                or (values['ic_compr2_a2'] is None and player.ic_compr_a2 != 600) \
+                or (values['ic_compr2_a3'] is None and player.ic_compr_a3 != 800) \
+                or (values['ic_compr2_a4'] is None and player.ic_compr_a4 != 500):
             return 'Bitte füllen Sie alle Felder aus.'
 
     def before_next_page(player, timeout_happened):
-        if (player.ic_compr_a1 == 30 or player.ic_compr2_a1 == 30) \
-                and (player.ic_compr_a2 == 80 or player.ic_compr2_a2 == 80) \
-                and (player.ic_compr_a3 == 100 or player.ic_compr2_a3 == 100) \
-                and (player.ic_compr_a4 == 50 or player.ic_compr2_a4 == 50):
+        if (player.ic_compr_a1 == 300 or player.ic_compr2_a1 == 300) \
+                and (player.ic_compr_a2 == 600 or player.ic_compr2_a2 == 600) \
+                and (player.ic_compr_a3 == 800 or player.ic_compr2_a3 == 800) \
+                and (player.ic_compr_a4 == 500 or player.ic_compr2_a4 == 500):
             player.ic_compr_check_a_pass = True
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
@@ -218,17 +218,17 @@ class IC_compr_check3_a(Page):
         return player.ic_compr_check_a_pass == False
 
     def error_message(player, values):
-        if (values['ic_compr3_a1'] is None and player.ic_compr_a1 != 30 and player.ic_compr2_a1 != 30) \
-                or (values['ic_compr3_a2'] is None and player.ic_compr_a2 != 80 and player.ic_compr2_a2 != 80) \
-                or (values['ic_compr3_a3'] is None and player.ic_compr_a3 != 100 and player.ic_compr2_a3 != 100) \
-                or (values['ic_compr3_a4'] is None and player.ic_compr_a4 != 50 and player.ic_compr2_a4 != 50):
+        if (values['ic_compr3_a1'] is None and player.ic_compr_a1 != 300 and player.ic_compr2_a1 != 300) \
+                or (values['ic_compr3_a2'] is None and player.ic_compr_a2 != 600 and player.ic_compr2_a2 != 600) \
+                or (values['ic_compr3_a3'] is None and player.ic_compr_a3 != 800 and player.ic_compr2_a3 != 800) \
+                or (values['ic_compr3_a4'] is None and player.ic_compr_a4 != 500 and player.ic_compr2_a4 != 500):
             return 'Bitte füllen Sie alle Felder aus.'
 
     def before_next_page(player, timeout_happened):
-        if (player.ic_compr_a1 == 30 or player.ic_compr2_a1 == 30 or player.ic_compr3_a1 == 30) \
-                and (player.ic_compr_a2 == 80 or player.ic_compr2_a2 == 80 or player.ic_compr3_a2 == 80) \
-                and (player.ic_compr_a3 == 100 or player.ic_compr2_a3 == 100 or player.ic_compr3_a3 == 100) \
-                and (player.ic_compr_a4 == 50 or player.ic_compr2_a4 == 50 or player.ic_compr3_a4 == 50):
+        if (player.ic_compr_a1 == 300 or player.ic_compr2_a1 == 300 or player.ic_compr3_a1 == 300) \
+                and (player.ic_compr_a2 == 600 or player.ic_compr2_a2 == 600 or player.ic_compr3_a2 == 600) \
+                and (player.ic_compr_a3 == 800 or player.ic_compr2_a3 == 800 or player.ic_compr3_a3 == 800) \
+                and (player.ic_compr_a4 == 500 or player.ic_compr2_a4 == 500 or player.ic_compr3_a4 == 500):
             player.ic_compr_check_a_pass = True
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
@@ -244,7 +244,7 @@ class IC_compr_check_b(Page):
             return 'Bitte füllen Sie alle Felder aus.'
 
     def before_next_page(player, timeout_happened):
-        if player.ic_compr_b1 == 80 and player.ic_compr_b2 == 0 and player.ic_compr_b3 == 100:
+        if player.ic_compr_b1 == 600 and player.ic_compr_b2 == 0 and player.ic_compr_b3 == 800:
             player.ic_compr_check_b_pass = True
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
@@ -259,15 +259,15 @@ class IC_compr_check2_b(Page):
         return player.ic_compr_check_b_pass == False
 
     def error_message(player, values):
-        if (values['ic_compr2_b1'] is None and player.ic_compr_b1 != 80) \
+        if (values['ic_compr2_b1'] is None and player.ic_compr_b1 != 600) \
                 or (values['ic_compr2_b2'] is None and player.ic_compr_b2 != 0) \
-                or (values['ic_compr2_b3'] is None and player.ic_compr_b3 != 100):
+                or (values['ic_compr2_b3'] is None and player.ic_compr_b3 != 800):
             return 'Bitte füllen Sie alle Felder aus.'
 
     def before_next_page(player, timeout_happened):
-        if (player.ic_compr_b1 == 80 or player.ic_compr2_b1 == 80) \
+        if (player.ic_compr_b1 == 600 or player.ic_compr2_b1 == 600) \
                 and (player.ic_compr_b2 == 0 or player.ic_compr2_b2 == 0) \
-                and (player.ic_compr_b3 == 100 or player.ic_compr2_b3 == 100):
+                and (player.ic_compr_b3 == 800 or player.ic_compr2_b3 == 800):
             player.ic_compr_check_b_pass = True
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
@@ -282,15 +282,15 @@ class IC_compr_check3_b(Page):
         return player.ic_compr_check_b_pass == False
 
     def error_message(player, values):
-        if (values['ic_compr3_b1'] is None and player.ic_compr_b1 != 80 and player.ic_compr2_b1 != 80) \
+        if (values['ic_compr3_b1'] is None and player.ic_compr_b1 != 600 and player.ic_compr2_b1 != 600) \
                 or (values['ic_compr3_b2'] is None and player.ic_compr_b2 != 0 and player.ic_compr2_b2 != 0) \
-                or (values['ic_compr3_b3'] is None and player.ic_compr_b3 != 100 and player.ic_compr2_b3 != 100):
+                or (values['ic_compr3_b3'] is None and player.ic_compr_b3 != 800 and player.ic_compr2_b3 != 800):
             return 'Bitte füllen Sie alle Felder aus.'
 
     def before_next_page(player, timeout_happened):
-        if (player.ic_compr_b1 == 80 or player.ic_compr2_b1 == 80 or player.ic_compr3_b1 == 80) \
+        if (player.ic_compr_b1 == 600 or player.ic_compr2_b1 == 600 or player.ic_compr3_b1 == 600) \
                 and (player.ic_compr_b2 == 0 or player.ic_compr2_b2 == 0 or player.ic_compr3_b2 == 0) \
-                and (player.ic_compr_b3 == 100 or player.ic_compr2_b3 == 100 or player.ic_compr3_b3 == 100):
+                and (player.ic_compr_b3 == 800 or player.ic_compr2_b3 == 800 or player.ic_compr3_b3 == 800):
             player.ic_compr_check_b_pass = True
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
@@ -494,7 +494,7 @@ class Results(Page):
 
 page_sequence = [
     #IC_instructions,IC_example,
-    #IC_Simulation,
+    Sim_IC,
     #IC_compr_check_a, IC_compr_check2_a, IC_compr_check3_a,
     #IC_compr_check_b, IC_compr_check2_b, IC_compr_check3_b,
     Verhandlungsteilnahme, Verhandlungsziel_Waitpage, IC_Verhandlungsziel,

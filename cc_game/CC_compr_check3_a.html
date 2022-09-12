@@ -66,7 +66,7 @@
 <p>
     Ihre Eingabe war nicht korrekt, dies ist nun <b>Ihre letzte Eingabe-Möglichkeit</b>. Bitte denken Sie noch einmal über
     Ihre Antwort nach. Wenn Sie Fragen zum Verhandlungsformat haben, können Sie Ihre Hand heben, um die Versuchsleitung
-    zu Ihnen zu bitten.<br><br>
+    zu Ihnen zu bitten. Bitte denken Sie daran, die Beträge in Cent anzugeben.<br><br>
     Beispiel:<br>
     Alle Gruppenmitglieder nehmen an der Verhandlung teil. Die Verhandlungs-Teilnehmer*innen schlagen folgende
     Verpflichtungen vor: <br>
@@ -74,39 +74,39 @@
 <table class="table" style="width:320px">
     <tr>
         <th> Spieler*in A </th>
-        <th> 30 Cent </th>
+        <th> 3€ </th>
     </tr>
     <tr>
         <th> Spieler*in B </th>
-        <th> 80 Cent </th>
+        <th> 6€ </th>
     </tr>
     <tr>
         <th> Spieler*in C </th>
-        <th> 80 Cent </th>
+        <th> 700 Cent </th>
     </tr>
     <tr>
         <th> Spieler*in D </th>
-        <th> 60 Cent </th>
+        <th> 500 Cent </th>
     </tr>
 </table>
 
-{{ if player.compr_a1 != 30 and player.compr2_a2 != 30 }}
+{{ if player.compr_a1 != 300 and player.compr2_a2 != 300 }}
     {{ formfield player.compr3_a1 label="Wie hoch ist der verbindliche Mindestbeitrag für alle Verhandlungsteilnehmer*innen?" }}
 {{ endif }}
-{{ if player.compr_a2 != 30 and player.compr2_a2 != 30 }}
+{{ if player.compr_a2 != 300 and player.compr2_a2 != 300 }}
     {{ formfield player.compr3_a2 label="Wie viel muss Spieler*in B mindestens beitragen?" }}
 {{ endif }}
-{{ if player.compr_a3 != 100 and player.compr2_a3 != 100 }}
+{{ if player.compr_a3 != 800 and player.compr2_a3 != 800 }}
     {{ formfield player.compr3_a3 label="Wie viel darf Spieler*in B maximal beitragen?" }}
 {{ endif }}
-{{ if player.compr_a4 != 30 and player.compr2_a4 != 30}}
-    {{ formfield player.compr3_a4 label="Wie hoch wäre der verbindliche Mindestbeitrag für alle Verhandlungsteilnehmer*innen, wenn Spieler*in D sein*ihr Angebot von 60 auf 90 Cent erhöht?" }}
+{{ if player.compr_a4 != 300 and player.compr2_a4 != 300 }}
+    {{ formfield player.compr3_a4 label="Wie hoch wäre der verbindliche Mindestbeitrag für alle Verhandlungsteilnehmer*innen, wenn Spieler*in D sein*ihr Angebot von 500 auf 800 Cent erhöht?" }}
 {{ endif }}
-{{ if player.compr_a5 != 10 and player.compr2_a5 != 10 }}
-    {{ formfield player.compr3_a5 label="Wie hoch wäre der verbindliche Mindestbeitrag für alle Verhandlungsteilnehmer*innen, wenn Spieler*in D sein*ihr Angebot von 60 auf 10 Cent verringert?" }}
+{{ if player.compr_a5 != 100 and player.compr2_a5 != 100 }}
+    {{ formfield player.compr3_a5 label="Wie hoch wäre der verbindliche Mindestbeitrag für alle Verhandlungsteilnehmer*innen, wenn Spieler*in D sein*ihr Angebot von 500 auf 100 Cent verringert?" }}
 {{ endif }}
-{{ if player.compr_a6 != 50 and player.compr2_a6 != 50 }}
-    {{ formfield player.compr3_a6 label="Wie hoch wäre der verbindliche Mindestbeitrag für alle Verhandlungsteilnehmer*innen, wenn Spieler*in A sein*ihr Angebot von 30 auf 50 Cent erhöht?" }}
+{{ if player.compr_a6 != 500 and player.compr2_a6 != 500 }}
+    {{ formfield player.compr3_a6 label="Wie hoch wäre der verbindliche Mindestbeitrag für alle Verhandlungsteilnehmer*innen, wenn Spieler*in A sein*ihr Angebot von 300 auf 500 Cent erhöht?" }}
 {{ endif }}
 
 {{ next_button }}

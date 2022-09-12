@@ -65,7 +65,8 @@
     </div>
 <p>
     Ihre Eingabe war nicht korrekt. Bitte denken Sie noch einmal über Ihre Antwort nach. Wenn Sie Fragen zum
-    Verhandlungsformat haben, können Sie Ihre Hand heben, um die Versuchsleitung zu Ihnen zu bitten. <br><br>
+    Verhandlungsformat haben, können Sie Ihre Hand heben, um die Versuchsleitung zu Ihnen zu bitten. Bitte denken Sie
+    daran, die Beträge in Cent anzugeben.<br><br>
     Beispiel:<br>
     Spieler*in A und Spieler*in D nehmen an der Verhandlung teil – Spieler*innen B und C nicht. Die
     Verhandlungs-Teilnehmer*innen schlagen folgende Verpflichtungen vor: <br>
@@ -73,24 +74,24 @@
 <table class="table" style="width:320px">
     <tr>
         <th> Spieler*in A </th>
-        <th> 40 Cent </th>
+        <th> 200 Cent </th>
     </tr>
     <tr>
         <th> Spieler*in D </th>
-        <th> 80 Cent </th>
+        <th> 600 Cent </th>
     </tr>
 </table>
-{{ if player.compr_b1 != 40 }}
+{{ if player.compr_b1 != 200 }}
     {{ formfield player.compr2_b1 label="Wie viel muss Spieler*in D mindestens beitragen?" }}
 {{ endif }}
 {{ if player.compr_b2 != 0 }}
     {{ formfield player.compr2_b2 label="Wie viel muss Spieler*in B mindestens beitragen?" }}
 {{ endif }}
-{{ if player.compr_b3 != 100 }}
+{{ if player.compr_b3 != 800 }}
     {{ formfield player.compr2_b3 label="Wie viel kann Spieler*in B maximal beitragen?" }}
 {{ endif }}
-{{ if player.compr_b4 != 20 }}
-    {{ formfield player.compr2_b4 label="Wie viel muss Spieler*in A mindestens beitragen, wenn Spieler*in D sein*ihr Angebot von 80 Cent auf 20 Cent reduziert?" }}
+{{ if player.compr_b4 != 100 }}
+    {{ formfield player.compr2_b4 label="Wie viel muss Spieler*in A mindestens beitragen, wenn Spieler*in D sein*ihr Angebot von 600 Cent auf 100 Cent reduziert?" }}
 {{ endif }}
 
 {{ next_button }}
