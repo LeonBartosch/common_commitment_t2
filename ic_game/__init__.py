@@ -13,10 +13,10 @@ class C(BaseConstants):
     ENDOWMENT = cu(800)
     MULTIPLIER = 2
     Eigenanteil = MULTIPLIER / 4 * 100
-    P1_ROLE = 'Spieler*in A'
-    P2_ROLE = 'Spieler*in B'
-    P3_ROLE = 'Spieler*in C'
-    P4_ROLE = 'Spieler*in D'
+    P1_ROLE = 'Person A'
+    P2_ROLE = 'Person B'
+    P3_ROLE = 'Person C'
+    P4_ROLE = 'Person D'
 
 
 class Subsession(BaseSubsession):
@@ -73,16 +73,16 @@ class Player(BasePlayer):
         initial=False)
     verhandlungsziel = models.CurrencyField(
         min=0, max=C.ENDOWMENT,
-        label="Wie hoch sollte Ihr persönlicher Mindestbeitrag in der folgenden Verhandlung am Ende ausfallen? "
+        label="Wie hoch sollte Ihr persönlicher Mindestbeitrag (in Cent) in der folgenden Verhandlung am Ende ausfallen? "
     )
     contribution = models.CurrencyField(min=0, max=C.ENDOWMENT,
-                                        label="Bitte geben sie den Betrag an, den sie beisteuern wollen:"
+                                        label="Bitte geben sie den Betrag (in Cent) an, den sie beisteuern wollen:"
                                         )
     contribution_check = models.BooleanField(
         initial=False
     )
     last_proposal = models.CurrencyField(
-        max=C.ENDOWMENT, label="Dieser Wert ist mein Mindestbeitrag:"
+        max=C.ENDOWMENT, label="Dieser Wert ist mein Mindestbeitrag (in Cent):"
     )
     time_end = models.StringField()
     willingness = models.FloatField(min=0, max=100)
@@ -94,6 +94,7 @@ class Player(BasePlayer):
         label='Bitte beschreiben Sie im hier, warum Sie sich gegen eine Teilnahme an der Verhandlung entschieden haben:',
         blank=True,
     )
+
 
 class Minimum(ExtraModel):
     player = models.Link(Player)
@@ -141,7 +142,6 @@ def set_payoffs(group: Group):
     )
     for p in players:
         p.payoff = C.ENDOWMENT - p.contribution + group.individual_share
-
 
 # PAGES
 class IC_instructions(Page):
@@ -326,8 +326,8 @@ class IC_Verhandlungsziel(Page):
     def error_message(player, values):
         if values['verhandlungsziel'] is None:
             return 'Sie müssen Ihr Verhandlungsziel angeben.'
-        if values['verhandlungsziel'] % 2 != 0:
-            return 'Bitte geben Sie einen geraden Betrag ein.'
+        if values['verhandlungsziel'] % 10 != 0:
+            return 'Bitte geben Sie einen durch 10 teilbaren Betrag ein.'
 
 
 
@@ -416,8 +416,8 @@ class IC_Last_proposal(Page):
     def error_message(player, values):
         if values['last_proposal'] is None:
             return 'Sie müssen einen Betrag angeben.'
-        if values['last_proposal'] % 2 != 0:
-            return 'Bitte geben Sie einen geraden Betrag ein.'
+        if values['last_proposal'] % 10 != 0:
+            return 'Bitte geben Sie einen durch 10 teilbaren Betrag ein.'
 
     @staticmethod
     def is_displayed(player):
@@ -432,11 +432,11 @@ class IC_Contribute(Page):
     def error_message(player, values):
         if values['contribution'] is None:
             return 'Sie müssen Ihren Beitrag angeben.'
-        if player.teilnahme:
+        if player.teilnahme and player.group.num_negotiators >= 2:
             if (values['contribution'] < player.last_proposal):
                 return 'Sie dürfen nicht weniger als den Mindestbeitrag angeben.'
-        if values['contribution'] % 2 != 0:
-            return 'Bitte geben Sie einen geraden Betrag ein.'
+        if values['contribution'] % 10 != 0:
+            return 'Bitte geben Sie einen durch 10 teilbaren Betrag ein.'
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -493,10 +493,10 @@ class Results(Page):
 
 
 page_sequence = [
-    #IC_instructions,IC_example,
-    Sim_IC,
-    #IC_compr_check_a, IC_compr_check2_a, IC_compr_check3_a,
-    #IC_compr_check_b, IC_compr_check2_b, IC_compr_check3_b,
+#    IC_instructions,IC_example,
+#    Sim_IC,
+#    IC_compr_check_a, IC_compr_check2_a, IC_compr_check3_a,
+#    IC_compr_check_b, IC_compr_check2_b, IC_compr_check3_b,
     Verhandlungsteilnahme, Verhandlungsziel_Waitpage, IC_Verhandlungsziel,
     Chat_Waitpage, IC_Chat, IC_One_neg, No_neg, IC_Last_proposal,
     IC_Contribute,

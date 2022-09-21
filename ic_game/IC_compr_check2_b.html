@@ -23,62 +23,63 @@
                 </header>
                 <div style="margin-top: 15px;" class="w3-container">
                     <p>
-                        Sie haben im Folgenden die Möglichkeit, an einer Verhandlung innerhalb ihrer Vierer-Gruppe teilzunehmen. In der
-                        Verhandlung können die Gruppenmitglieder individuelle Verpflichtungen eingehen, die die Beiträge ins Gruppenprojekt
-                        der vier Gruppenmitglieder festlegen. Der Verhandlungsprozess besteht aus drei Stufen: Teilnahme, Verhandlung und
-                        Verpflichtung. Anschließend folgt der Beitrag ins Gruppenprojekt und die Auszahlung.
-                        <br><br>
-                        <img src="{{ static 'bilder/ic_Verlauf.png' }}" width="720px"/>
+                        Sie haben im Folgenden die Möglichkeit, an einer Verhandlung innerhalb Ihrer Gruppe teilzunehmen. In der
+                        Verhandlung können die Gruppenmitglieder <b>individuelle Verpflichtungen</b> eingehen, die die Beiträge zum
+                        Gruppenprojekt der vier Gruppenmitglieder festlegen. Der Verhandlungsprozess besteht aus drei Stufen: (1)
+                        Teilnahme-Entscheidung, (2) Verhandlung und (3) Verpflichtung. Anschließend folgt der Beitrag ins Gruppenprojekt
+                        und die Auszahlung.
                         <br> <br>
-                        <u>Teilnahme:</u> Alle Gruppenmitglieder können sich unabhängig entscheiden, ob sie an der Verhandlung teilnehmen
-                        wollen oder nicht. Wenn Sie sich gegen eine Teilnahme an der Verhandlung entscheiden, haben Sie keine Möglichkeit
-                        sich an der Verhandlung sowie Verpflichtung zu beteiligen oder Informationen über die Verhandlung zu erhalten. Ihr
-                        Beitrag ist nicht Verhandlungsgegenstand.  Alle Mitglieder werden darüber informiert, wer an der Verhandlung
-                        teilnimmt. Sie bleiben dabei anonym, z.B. als „Spieler*in A“.
+                        <u>Teilnahme-Entscheidung:</u> Alle Gruppenmitglieder können sich unabhängig entscheiden, ob sie an der Verhandlung
+                        teilnehmen wollen oder nicht. Wenn Sie sich gegen eine Teilnahme an der Verhandlung entscheiden, haben Sie keine
+                        Möglichkeit sich an der Verhandlung sowie Verpflichtung zu beteiligen oder Informationen über die Verhandlung zu
+                        erhalten. Sie entscheiden unabhängig vom Verhandlungsergebnis, wie viel Sie beitragen möchten. Alle Mitglieder
+                        werden darüber informiert, wer an der Verhandlung teilnimmt. Sie bleiben dabei anonym, z.B. als „Person A“.
                         <br><br>
                         <u>Verhandlung:</u> Verhandlungsteilnehmer*innen haben drei Minuten Zeit, Vorschläge für eine Verpflichtung
-                        auszutauschen. Die Verpflichtung spezifiziert einen Mindestbeitrag zwischen 0 und 100 Cent, den Sie bereit sind
-                        zum gemeinsamen Gruppenprojekt beizutragen. Jede*r Verhandlungsteilnehmer*in schlägt individuelle Verpflichtungen
-                        vor, die sich lediglich auf den eigenen Beitrag beziehen. (Vorschläge für Verpflichtungen anderer Gruppenmitglieder
-                        sind nicht möglich.) Vorschläge sind für alle Verhandlungsteilnehmer*innen sofort sichtbar und können innerhalb der
-                        Verhandlungszeit jederzeit geändert werden.
+                        auszutauschen. Die Verpflichtung spezifiziert einen <b>Mindestbeitrag</b> Fzwischen 0 und 8€, den Sie bereit sind zum
+                        gemeinsamen Gruppenprojekt beizutragen. Jede*r Verhandlungsteilnehmer*in schlägt individuelle Verpflichtungen vor,
+                        die sich auf den eigenen Beitrag beziehen. Vorschläge sind für alle Verhandlungsteilnehmer*innen sofort sichtbar
+                        und können innerhalb der Verhandlungszeit jederzeit geändert werden.
                         <br><br>
                         <u>Verpflichtung:</u> Nach Ablauf der drei Minuten werden die Verhandlungsteilnehmer*innen aufgefordert, unabhängig
                         voneinander einen letzten Vorschlag zu machen. Jede*r Verhandlungsteilnehmer*in ist danach an den Beitrag, den
-                        er*sie für sich selbst vorgeschlagen hat, gebunden. Das heißt, dass mindestens der Betrag der individuellen
-                        Verpflichtung zum Gruppenprojekt beigetragen werden muss. (Gruppenmitglieder, die nicht an der Verhandlung
-                        teilnehmen, unterliegen keiner Verpflichtung.)
+                        er*sie für sich selbst vorgeschlagen hat, gebunden. Das heißt, dass mindestens der Betrag der eigenen,
+                        individuellen Verpflichtung zum Gruppenprojekt beigetragen werden muss. Gruppenmitglieder, die nicht an der
+                        Verhandlung teilnehmen, unterliegen keiner Verpflichtung und können demnach frei entscheiden, wie viel sie
+                        beitragen möchten.
+                        <br>
+                        <img src="{{ static 'bilder/Verlauf_IC.png' }}" width="880px"/>
                     </p>
                 </div>
             </div>
         </div>
     </div>
 <p>
-    Ihre Eingabe war nicht korrekt. Bitte denken Sie noch einmal über Ihre Antwort nach. Wenn Sie Fragen zum
+    <b>Ihre Eingabe war nicht korrekt.</b> Bitte denken Sie noch einmal über Ihre Antwort nach. Wenn Sie Fragen zum
     Verhandlungsformat haben, können Sie Ihre Hand heben, um die Versuchsleitung zu Ihnen zu bitten. Bitte denken Sie
     daran, die Beträge in Cent anzugeben.<br><br>
     Beispiel:<br>
-    Spieler*in A und Spieler*in D nehmen an der Verhandlung teil – Spieler*innen B und C nicht. Die
+    Person A und Person D nehmen an der Verhandlung teil – Personnen B und C nicht. Die
     Verhandlungs-Teilnehmer*innen schlagen folgende Verpflichtungen vor:<br>
 </p>
 <table class="table" style="width:320px">
     <tr>
-        <th> Spieler*in A </th>
+        <th> Person A </th>
         <th> 2€ </th>
     </tr>
     <tr>
-        <th> Spieler*in D </th>
+        <th> Person D </th>
         <th> 6€ </th>
     </tr>
 </table>
 {{ if player.ic_compr_b1 != 600 }}
-    {{ formfield player.ic_compr2_b1 label="Wie viel muss Spieler*in D mindestens beitragen?" }}
+    {{ formfield player.ic_compr2_b1 label="Wie viel muss Person D mindestens beitragen (in Cent)?" }}
 {{ endif }}
 {{ if player.ic_compr_b2 != 0 }}
-    {{ formfield player.ic_compr2_b2 label="Wie viel muss Spieler*in B mindestens beitragen?" }}
+    {{ formfield player.ic_compr2_b2 label="Wie viel muss Person B mindestens beitragen (in Cent)?" }}
 {{ endif }}
 {{ if player.ic_compr_b3 != 800 }}
-    {{ formfield player.ic_compr2_b3 label="Wie viel kann Spieler*in B maximal beitragen?" }}
+    {{ formfield player.ic_compr2_b3 label="Wie viel kann Person B maximal beitragen (in Cent)?" }}
 {{ endif }}
 
 {{ next_button }}

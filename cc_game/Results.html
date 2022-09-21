@@ -7,14 +7,14 @@
         Ihre gesamte Gruppe hat {{ group.total_contribution }} beigetragen. Durch Verdopplung der Beiträge entsteht
         ein gemeinsames Gut von {{ player.group.public_good_total }}, von welchem
         jede*r von Ihnen {{ group.individual_share }} erhält.<br>
-        <b>Sie erhalten somit insgesamt {{ player.payoff }}</b>.<br>
+        <b>Sie erhalten somit insgesamt {{ player.payoff }}, also {{ participant.payoff_plus_participation_fee() }}.</b><br>
     </p>
     <p>
         Im folgenden sehen Sie die Erträge der anderen Spieler:
     </p>
     <table>
         <tr>
-            <th>Spieler*in</th>
+            <th>Person</th>
             <th>Ertrag</th>
         </tr>
         {{ for other in others }}

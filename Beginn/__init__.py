@@ -23,7 +23,7 @@ class Group(BaseGroup):
 class Player(BasePlayer):
     einverstaendnis = models.BooleanField(blank=True)
     time_end = models.StringField()
-    code = models.StringField()
+    code = models.StringField(label="")
 
 # PAGES
 class Begruessung(Page):

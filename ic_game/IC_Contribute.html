@@ -8,22 +8,22 @@
     {{ if player.teilnahme == False }}
         Die folgenden Mitglieder Ihrer Gruppe hatten sich für eine Verhandlung entschieden:
         <ol class="a">
-            {{ if p1_participated }} <li> Spieler*in A </li> {{ endif }}
-            {{ if p2_participated }} <li> Spieler*in B </li> {{ endif }}
-            {{ if p3_participated }} <li> Spieler*in C </li> {{ endif }}
-            {{ if p4_participated }} <li> Spieler*in D </li> {{ endif }}
+            {{ if p1_participated }} <li> Person A </li> {{ endif }}
+            {{ if p2_participated }} <li> Person B </li> {{ endif }}
+            {{ if p3_participated }} <li> Person C </li> {{ endif }}
+            {{ if p4_participated }} <li> Person D </li> {{ endif }}
         </ol>
     {{ endif }}
         Alle 4 Gruppenmitglieder sind mit <b>8€</b> ausgestattet.<br>
         Jeder beigesteuerte Euro wird <b>verdoppelt</b> und anschließend gleichmäßig auf alle 4 Gruppenmitglieder
         aufgeteilt. Man bekommt pro beigetragene 2€ nur einen Euro zurück.<br><br>
 
-    {{ if player.teilnahme == True }}Ihr festgelegter Mindestbeitrag beträgt
+    {{ if player.teilnahme == True and player.group.num_negotiators >= 2 }}Ihr festgelegter Mindestbeitrag beträgt
     <b>{{ player.last_proposal }}</b>. {{ endif }}
 </p>
 
 <p>
-    {{ if player.teilnahme == True }}
+    {{ if player.teilnahme == True and player.group.num_negotiators >= 2 }}
         Sie können also nun einen beliebigen Betrag zwischen {{ player.last_proposal }} und {{ C.ENDOWMENT }}
         beitragen.
     {{ else }}

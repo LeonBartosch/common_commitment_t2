@@ -9,10 +9,10 @@ class C(BaseConstants):
     ENDOWMENT = cu(800)
     MULTIPLIER = 2
     Eigenanteil = MULTIPLIER/4*100
-    P1_ROLE = 'Spieler*in A'
-    P2_ROLE = 'Spieler*in B'
-    P3_ROLE = 'Spieler*in C'
-    P4_ROLE = 'Spieler*in D'
+    P1_ROLE = 'Person A'
+    P2_ROLE = 'Person B'
+    P3_ROLE = 'Person C'
+    P4_ROLE = 'Person D'
 
 
 
@@ -79,16 +79,16 @@ class Player(BasePlayer):
     compr3_b4 = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
     verhandlungsziel = models.CurrencyField(
         min=0, max=C.ENDOWMENT,
-        label="Wie hoch sollte der Mindestbeitrag in der folgenden Verhandlung am Ende ausfallen? "
+        label="Wie hoch sollte der Mindestbeitrag (in Cent) in der folgenden Verhandlung am Ende ausfallen? "
     )
     contribution = models.CurrencyField(min=0, max=C.ENDOWMENT,
-                                        label="Bitte geben sie den Betrag an, den sie beisteuern wollen:"
+                                        label="Bitte geben sie den Betrag (in Cent) an, den sie beisteuern wollen:"
     )
     contribution_check = models.BooleanField(
         initial=False
     )
     last_proposal = models.CurrencyField(min=0,
-        max=C.ENDOWMENT, label="Dieser Wert sollte der Mindestbeitrag für alle Verhandlungsteilnehmer*innen sein:"
+        max=C.ENDOWMENT, label="Dieser Wert sollte der Mindestbeitrag (in Cent) für alle Verhandlungsteilnehmer*innen sein:"
     )
     teilnahme = models.BooleanField(
         choices=[[True, 'Ja'], [False, 'Nein'], ],
@@ -128,9 +128,9 @@ def set_minimum(group):
             if p.last_proposal < group.lowest_proposal:
                 group.lowest_proposal = p.last_proposal
                 if group.lowest_proposer== "":
-                    group.lowest_proposer = "Spieler "+ str(p.id_in_group)
+                    group.lowest_proposer = "Person "+ str(p.id_in_group)
                 else:
-                    group.lowest_proposer += " und Spieler " + str(p.id_in_group)
+                    group.lowest_proposer += " und Person " + str(p.id_in_group)
 
 
 def set_payoffs(group: Group):
@@ -351,8 +351,8 @@ class CC_Verhandlungsziel(Page):
     def error_message(player, values):
         if values['verhandlungsziel'] is None:
             return 'Sie müssen Ihr Verhandlungsziel angeben.'
-        if values['verhandlungsziel'] % 2 != 0:
-            return 'Bitte geben Sie einen geraden Betrag ein.'
+        if values['verhandlungsziel'] % 10 != 0:
+            return 'Bitte geben Sie einen durch 10 teilbaren Betrag ein.'
 
 
 class Chat_Waitpage(WaitPage):
@@ -440,8 +440,8 @@ class Last_proposal(Page):
     def error_message(player, values):
         if values['last_proposal'] is None:
             return 'Sie müssen einen Betrag angeben.'
-        if values['last_proposal'] % 2 != 0:
-            return 'Bitte geben Sie einen geraden Betrag ein.'
+        if values['last_proposal'] % 10 != 0:
+            return 'Bitte geben Sie einen durch 10 teilbaren Betrag ein.'
 
     @staticmethod
     def is_displayed(player):
@@ -471,8 +471,8 @@ class Contribute(Page):
         if player.teilnahme and player.group.num_negotiators >= 2:
             if (values['contribution'] < player.group.lowest_proposal):
                 return 'Sie dürfen nicht weniger als den Mindestbeitrag angeben.'
-        if values['contribution'] % 2 != 0:
-            return 'Bitte geben Sie einen geraden Betrag ein.'
+        if values['contribution'] % 10 != 0:
+            return 'Bitte geben Sie einen durch 10 teilbaren Betrag ein.'
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -536,8 +536,8 @@ class Results(Page):
 
 page_sequence = [
    # CC_instructions,
-    CC_example,
-    Sim_CC,
+    #CC_example,
+    #Sim_CC,
     #CC_compr_check_a,
     #CC_compr_check2_a,
     #CC_compr_check3_a,

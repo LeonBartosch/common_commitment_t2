@@ -38,28 +38,28 @@
                 <th> <b>Auszahlung</b> </th>
             </tr>
             <tr>
-                <th> Spieler*in A </th>
+                <th> Person A </th>
                 <th> {{ form.sim_a_participation }} </th>
                 <th> {{ form.sim_a_commitment }} </th>
                 <th> {{ form.sim_a_contribution }}</th>
                 <th id="payoff_player_a"></th>
             </tr>
             <tr>
-                <th> Spieler*in B </th>
+                <th> Person B </th>
                 <th> {{ form.sim_b_participation }} </th>
                 <th>  {{ form.sim_b_commitment }} </th>
                 <th> {{ form.sim_b_contribution }}</th>
                 <th id="payoff_player_b"></th>
             </tr>
             <tr>
-                <th> Spieler*in C </th>
+                <th> Person C </th>
                 <th> {{ form.sim_c_participation }} </th>
                 <th> {{ form.sim_c_commitment }} </th>
                 <th> {{ form.sim_c_contribution }}</th>
                 <th id="payoff_player_c"></th>
             </tr>
             <tr>
-                <th> Spieler*in D </th>
+                <th> Person D </th>
                 <th> {{ form.sim_d_participation }} </th>
                 <th> {{ form.sim_d_commitment }} </th>
                 <th> {{ form.sim_d_contribution }}</th>
@@ -68,11 +68,11 @@
         </table>
 
         <div class="error" id="format_error">
-            Bitte achten Sie darauf, dass nur gerade Cent-Beträge zulässig sind!
+            Bitte achten Sie darauf, dass nur durch 10 teilbare Cent-Beträge zulässig sind!
         </div>
 
         <div class="error" id="range_error">
-            Bitte achten Sie darauf, dass alle Spieler*innen, die an der Verhandlung teilnehmen, mindestens so viel ins gemeinsame Gruppenprojekt investieren müssen, wie die niedrigste Mindestinvestition vorgibt!
+            Bitte achten Sie darauf, dass alle Personen, die an der Verhandlung teilnehmen, mindestens so viel ins gemeinsame Gruppenprojekt investieren müssen, wie die niedrigste Mindestinvestition vorgibt!
         </div>
 
         <table class="table" style="width: 300px">
@@ -112,15 +112,15 @@
     }
 
     function format_correct() {
-        if(contribution_a % 2 != 0)
+        if(contribution_a % 10 != 0)
             return false;
-        if(contribution_b % 2 != 0)
+        if(contribution_b % 10 != 0)
             return false;
-        if(contribution_c % 2 != 0)
+        if(contribution_c % 10 != 0)
             return false;
-        if(contribution_d % 2 != 0)
+        if(contribution_d % 10 != 0)
             return false;
-        if(formInputs.sim_a_commitment.value != "" && parseInt(formInputs.sim_a_commitment.value) % 2 != 0)
+        if(formInputs.sim_a_commitment.value != "" && parseInt(formInputs.sim_a_commitment.value) % 10 != 0)
             return false;
         return true;
     }

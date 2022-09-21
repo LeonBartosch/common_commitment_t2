@@ -8,46 +8,47 @@
 <body>
 <p>
     Sie sind <span style="color:steelblue"> {{ player.role }}</span>.<br>
-    Weitere teilnehmende Spieler*innen sind:<br>
-    {{ if player.id_in_group != 1 and p1_participated }} Spieler*in A<br>{{ endif }}
-    {{ if player.id_in_group != 2 and p2_participated }} Spieler*in B<br>{{ endif }}
-    {{ if player.id_in_group != 3 and p3_participated }} Spieler*in C<br>{{ endif }}
-    {{ if player.id_in_group != 4 and p4_participated }} Spieler*in D<br>{{ endif }}<br>
-    Jede*r Spieler*in verfügt über einen Betrag von {{ C.ENDOWMENT }}.<br><br>
+    Weitere teilnehmende Personen sind:<br>
+    {{ if player.id_in_group != 1 and p1_participated }} Person A<br>{{ endif }}
+    {{ if player.id_in_group != 2 and p2_participated }} Person B<br>{{ endif }}
+    {{ if player.id_in_group != 3 and p3_participated }} Person C<br>{{ endif }}
+    {{ if player.id_in_group != 4 and p4_participated }} Person D<br>{{ endif }}<br>
+    Jede Person verfügt über einen Betrag von {{ C.ENDOWMENT }}.<br>
+    Bitte schlagen Sie nur Cent-Beträge, die durch 10 teilbar sind, vor.<br><br>
 </p>
 <table class="table" style="width:650px">
     <tr>
-      <th>Spieler*in</th>
+      <th>Person</th>
       <th>Vorschlag</th>
     </tr>
     {{ if p1_participated }}
         <tr>
-            <td>{{ if player.id_in_group == 1 }} <span style="color:steelblue">Spieler*in A (Sie)</span> {{ else }} Spieler*in A {{ endif }}</td>
+            <td>{{ if player.id_in_group == 1 }} <span style="color:steelblue">Person A (Sie)</span> {{ else }} Person A {{ endif }}</td>
             <td id="Player1" ></td>
         </tr>
     {{ endif }}
     {{ if p2_participated }}
         <tr>
-            <td>{{ if player.id_in_group == 2 }} <span style="color:steelblue">Spieler*in B (Sie)</span> {{ else }} Spieler*in B {{ endif }}</td>
+            <td>{{ if player.id_in_group == 2 }} <span style="color:steelblue">Person B (Sie)</span> {{ else }} Person B {{ endif }}</td>
             <td id="Player2" ></td>
         </tr>
     {{ endif }}
     {{ if p3_participated }}
         <tr>
-            <td>{{ if player.id_in_group == 3 }} <span style="color:steelblue">Spieler*in C (Sie)</span> {{ else }} Spieler*in C {{ endif }}</td>
+            <td>{{ if player.id_in_group == 3 }} <span style="color:steelblue">Person C (Sie)</span> {{ else }} Person C {{ endif }}</td>
             <td id="Player3" ></td>
         </tr>
     {{ endif }}
     {{ if p4_participated }}
         <tr>
-            <td>{{ if player.id_in_group == 4 }} <span style="color:steelblue">Spieler*in D (Sie)</span> {{ else }} Spieler*in D {{ endif }}</td>
+            <td>{{ if player.id_in_group == 4 }} <span style="color:steelblue">Person D (Sie)</span> {{ else }} Person D {{ endif }}</td>
             <td id="Player4" ></td>
         </tr>
     {{ endif }}
 </table>
 <p> Der gemeinsame Mindestbeitrag sollte bei
 <input id="inputbox" type="number" min="0" max="800" style="width: 42px" >
-    liegen.
+    Cent liegen.
 <button type="button" onclick="sendValue();">Senden</button>
 </p>
 <script>
@@ -94,8 +95,8 @@
     if(inputbox.value<0 || inputbox.value>800){
         alert("Bitte geben Sie eine Zahl zwischen 0 und 800 ein");
     }
-    else if(inputbox.value%2!=0){
-        alert("Bitte geben Sie eine gerade Zahl ein");
+    else if(inputbox.value%10!=0){
+        alert("Bitte geben Sie eine durch 10 teilbare Zahl ein");
     }
     else{
         liveSend(parseInt(inputbox.value));
