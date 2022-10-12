@@ -1,0 +1,33 @@
+{{ block title }}{{ endblock }}
+{{ block content }}
+
+    <p>
+        Sie haben mit einem Betrag von 8€ begonnen,
+        von welchem sie {{ player.contribution }} beigesteuert haben. <br>
+        Ihre gesamte Gruppe hat {{ group.total_contribution }} beigetragen. Durch Verdopplung der Beiträge entsteht
+        ein gemeinsames Gut von {{ player.group.public_good_total }}, von welchem
+        jede*r von Ihnen {{ group.individual_share }} erhält.<br>
+        <b>Sie erhalten somit insgesamt {{ player.payoff }}, also {{ participant.payoff_plus_participation_fee() }}.</b><br>
+    </p>
+    <p>
+        Im folgenden sehen Sie die Erträge der anderen Spieler:
+    </p>
+    <table>
+        <tr>
+            <th>Person</th>
+            <th>Ertrag</th>
+        </tr>
+        {{ for other in others }}
+        <tr>
+        <td style="width:105px"> {{ other.role }} </td>
+        <td>{{ other.payoff }}</td>
+        </tr>
+        {{ endfor }}
+    </table>
+    <br>
+    <i>Damit beträgt Ihre Auszahlung für diesen Teil der Studie {{ participant.payoff_plus_participation_fee() }}.
+        Für den ersten Teil, dem Online-Part, erhalten Sie {{ T1_payoff }}.
+        In Summe erhalten Sie somit {{ total_payoff }} für Ihre Studienteilnahme. </i>
+    {{ next_button }}
+
+{{ endblock }}

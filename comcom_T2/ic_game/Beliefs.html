@@ -1,0 +1,20 @@
+{{ block content }}
+<html>
+<body>
+Was erwarten Sie, wie viele der anderen Personen in Ihrer Gruppe entscheiden sich für die Verhandlungsteilnahme?<br><br>
+{{ formfield_errors 'beliefs' }}
+<i>
+  Ich erwarte, dass sich
+  <select name="beliefs" style="width:40px">
+    <option value="-1">--</option>
+    <option value="0">0</option>
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  </select>
+  der anderen Personen aus meiner Gruppe für die Verhandlungsteilnahme entscheiden.</i>
+
+{{ next_button }}
+</body>
+</html>
+{{ endblock }}

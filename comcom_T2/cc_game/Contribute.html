@@ -1,0 +1,42 @@
+{{ extends "global/Page.html" }}
+{{ block title }}Beitragsentscheidung{{ endblock }}
+{{ block content }}
+<style>
+    ol.a {list-style-type: none;}
+</style>
+
+
+    <p>
+        {{ if player.teilnahme == False }}
+        Die folgenden Mitglieder Ihrer Gruppe hatten sich für eine Verhandlung entschieden:
+        <ol class="a">
+            {{ if p1_participated }} <li> Person </li> {{ endif }}
+            {{ if p2_participated }} <li> Person B </li> {{ endif }}
+            {{ if p3_participated }} <li> Person C </li> {{ endif }}
+            {{ if p4_participated }} <li> Person D </li> {{ endif }}
+        </ol>
+        {{ endif }}
+        Alle 4 Gruppenmitglieder sind mit <b>8€</b> ausgestattet.<br>
+        Jeder beigesteuerte Euro wird <b>verdoppelt</b> und anschließend gleichmäßig auf alle 4 Gruppenmitglieder aufgeteilt.
+        Man bekommt pro beigetragene 2€ nur einen Euro zurück.
+
+
+        {{ if player.teilnahme == True and player.group.num_negotiators >= 2 }}Der kleinste Vorschlag für einen Mindestbeitrag ihrer Verhandlungsgruppe
+        beträgt  <b>{{ group.lowest_proposal}}</b>. {{ endif }}
+    </br>
+
+<p>
+    {{ if player.teilnahme == True and player.group.num_negotiators >= 2 }}
+        Sie können also nun einen beliebigen Betrag zwischen {{ group.lowest_proposal}} und {{ C.ENDOWMENT }} (in
+        10-Cent-Schritten; also 0, 10, 20, 30, … 790, 800 Cent) beitragen.
+    {{ else }}
+        Sie können also nun einen beliebigen Betrag zwischen 0 und {{ C.ENDOWMENT }} (in 10-Cent-Schritten; also 0, 10, 20,
+        30, … 790, 800 Cent) beitragen.
+    {{ endif }}
+</p>
+
+{{ formfields }}
+
+{{ next_button }}
+
+{{ endblock }}
