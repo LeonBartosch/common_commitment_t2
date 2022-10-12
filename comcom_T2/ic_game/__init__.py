@@ -82,7 +82,7 @@ class Player(BasePlayer):
         initial=False
     )
     last_proposal = models.CurrencyField(
-        max=C.ENDOWMENT, label="Dieser Wert ist mein Mindestbeitrag (in Cent):"
+        min=0, max=C.ENDOWMENT, label="Dieser Wert ist mein Mindestbeitrag (in Cent):"
     )
     time_end = models.StringField()
     willingness = models.FloatField(min=0, max=100)

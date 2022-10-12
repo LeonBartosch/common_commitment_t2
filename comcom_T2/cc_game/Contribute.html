@@ -7,10 +7,10 @@
 
 
     <p>
-        {{ if player.teilnahme == False }}
+        {{ if player.teilnahme == False and player.group.num_negotiators >= 1 }}
         Die folgenden Mitglieder Ihrer Gruppe hatten sich für eine Verhandlung entschieden:
         <ol class="a">
-            {{ if p1_participated }} <li> Person </li> {{ endif }}
+            {{ if p1_participated }} <li> Person A </li> {{ endif }}
             {{ if p2_participated }} <li> Person B </li> {{ endif }}
             {{ if p3_participated }} <li> Person C </li> {{ endif }}
             {{ if p4_participated }} <li> Person D </li> {{ endif }}

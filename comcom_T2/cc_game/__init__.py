@@ -25,7 +25,7 @@ class Group(BaseGroup):
     total_contribution = models.CurrencyField()
     individual_share = models.CurrencyField()
     public_good_total = models.CurrencyField()
-    lowest_proposer = models.StringField()
+#    lowest_proposer = models.StringField()
     lowest_proposal = models.CurrencyField()
     num_negotiators = models.FloatField()
     num_contributed = models.FloatField()
@@ -124,15 +124,15 @@ def custom_export(players):
 def set_minimum(group):
     players = group.get_players()
     group.lowest_proposal = 800
-    group.lowest_proposer = ""
-    for p in players:
-        if p.teilnahme:
-            if p.last_proposal < group.lowest_proposal:
-                group.lowest_proposal = p.last_proposal
-                if group.lowest_proposer== "":
-                    group.lowest_proposer = "Person "+ str(p.id_in_group)
-                else:
-                    group.lowest_proposer += " und Person " + str(p.id_in_group)
+#    group.lowest_proposer = ""
+#    for p in players:
+#        if p.teilnahme:
+#            if p.last_proposal < group.lowest_proposal:
+#                group.lowest_proposal = p.last_proposal
+#                if group.lowest_proposer== "":
+#                    group.lowest_proposer = "Person "+ str(p.id_in_group)
+#                else:
+#                    group.lowest_proposer += " und Person " + str(p.id_in_group)
 
 
 def set_payoffs(group: Group):
@@ -224,12 +224,12 @@ class CC_compr_check2_a(Page):
             return 'Bitte füllen Sie alle Felder aus.'
 
     def before_next_page(player, timeout_happened):
-        if (player.compr_a1 == 30 or player.compr2_a1 == 300) \
-                and (player.compr_a2 == 30 or player.compr2_a2 == 300) \
+        if (player.compr_a1 == 300 or player.compr2_a1 == 300) \
+                and (player.compr_a2 == 300 or player.compr2_a2 == 300) \
                 and (player.compr_a3 == 100 or player.compr2_a3 == 800) \
-                and (player.compr_a4 == 30 or player.compr2_a4 == 300) \
-                and (player.compr_a5 == 10 or player.compr2_a5 == 100) \
-                and (player.compr_a6 == 50 or player.compr2_a6 == 500):
+                and (player.compr_a4 == 300 or player.compr2_a4 == 300) \
+                and (player.compr_a5 == 100 or player.compr2_a5 == 100) \
+                and (player.compr_a6 == 500 or player.compr2_a6 == 500):
             player.compr_check_a_pass = True
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
@@ -545,8 +545,8 @@ class Results(Page):
         total_payoff = T1_payoff + player.participant.payoff_plus_participation_fee()
         return dict(
             others=player.get_others_in_group(),
-            T1_payoff = T1_payoff,
-            total_payoff = total_payoff
+            T1_payoff=T1_payoff,
+            total_payoff=total_payoff
         )
 
     @staticmethod
@@ -556,25 +556,27 @@ class Results(Page):
 
 
 page_sequence = [
-#    CC_instructions,
-#    CC_example,
-#    Sim_CC,
-#    CC_compr_check_a,
-#    CC_compr_check2_a,
-#    CC_compr_check3_a,
-#    CC_compr_check_b,
-#    CC_compr_check2_b,
-#    CC_compr_check3_b,
-#    Verhandlungsteilnahme,
+    CC_instructions,
+    CC_example,
+    Sim_CC,
+    CC_compr_check_a,
+    CC_compr_check2_a,
+    CC_compr_check3_a,
+    CC_compr_check_b,
+    CC_compr_check2_b,
+    CC_compr_check3_b,
+    Verhandlungsteilnahme,
     Beliefs,
     Verhandlungsziel_Waitpage,
-#    CC_Verhandlungsziel,
-#    Chat_Waitpage,
-#    CC_Chat,
+    CC_Verhandlungsziel,
+    Chat_Waitpage,
+    CC_Chat,
+    One_neg,
+    No_neg,
     Last_proposal,
     Proposal_waitpage,
     Contribute,
-#    Filler_task,
+    Filler_task,
     ResultsWaitPage,
     Results
 ]

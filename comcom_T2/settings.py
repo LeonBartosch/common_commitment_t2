@@ -5,7 +5,7 @@ SESSION_CONFIGS = [
     dict(
         name='T2',
         display_name="T2",
-        app_sequence=['cc_game'],
+        app_sequence=['Beginn', 'group_matching', 'cc_game', 'ic_game', 'Ende'],
         num_demo_participants=4,
     ),
 ]

@@ -21,7 +21,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    einverstaendnis = models.BooleanField(blank=True)
+#    einverstaendnis = models.BooleanField(blank=True)
     time_end = models.StringField()
     code = models.StringField(label="")
 
@@ -39,13 +39,13 @@ class Informedconsent(Page):
 
 
 class Einwilligung(Page):
-    form_model = 'player'
-    form_fields = ['einverstaendnis']
+#    form_model = 'player'
+#    form_fields = ['einverstaendnis']
 
     @staticmethod
-    def error_message(player, values):
-        if values['einverstaendnis'] is not True:
-            return 'Sie müssen die Teilnahmebedingungen akzeptieren, um an der Studie teilnehmen zu können.'
+#    def error_message(player, values):
+#        if values['einverstaendnis'] is not True:
+#            return 'Sie müssen die Teilnahmebedingungen akzeptieren, um an der Studie teilnehmen zu können.'
     def before_next_page(player, timeout_happened):
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
@@ -106,8 +106,9 @@ class Pgg_scenario3(Page):
 
 
 
-page_sequence = [#Begruessung, Informedconsent,
-     Code_Eingabe,
-    # Ueberleitung,
-     #            Pgg_scenario1, Pgg_scenario2, Pgg_scenario3
+page_sequence = [
+    Begruessung, Informedconsent,
+    Code_Eingabe,
+    Ueberleitung,
+    Pgg_scenario1, Pgg_scenario2, Pgg_scenario3
            ]

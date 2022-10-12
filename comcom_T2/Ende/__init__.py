@@ -65,17 +65,17 @@ class Seriousness_check(Page):
         player.study_completed = True
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
-#        if player.effort == 5 and player.attention == 5 and player.use_data:
-#            player.srsn_check_pass = True
+        if player.use_data:
+            player.srsn_check_pass = True
         with open('LabIds/CountParticipation.txt', 'r') as file:
             txt = int(file.read())
             print(txt)
             txt += 1
             print(txt)
-        #if (player.participant.label != "1234555"):
-        if player.use_data:
-            with open('LabIds/CountParticipation.txt', 'w') as file:
-                file.write(str(txt))
+        if (player.participant.label != "123456"):
+            if player.use_data:
+                with open('LabIds/CountParticipation.txt', 'w') as file:
+                    file.write(str(txt))
 
 
 class Debriefing(Page):
