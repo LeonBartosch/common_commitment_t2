@@ -27,7 +27,6 @@
             beliebig variieren. So können Sie die Auswirkungen auf die Auszahlungen beobachten. Verpflichtungen und
             Beiträge werden in <b>Cent</b> – nicht in € - angegeben, dabei sind in 10-Cent-Abständen alle Beträge
             zwischen 0 und 800 zulässig (also 0, 10, 20, 30, … 790, 800).
-
         </p>
 
         <table class="table" style="width:650px">
@@ -76,6 +75,8 @@
             Bitte achten Sie darauf, dass alle Personen, die an der Verhandlung teilnehmen, mindestens so viel ins gemeinsame Gruppenprojekt investieren müssen, wie die niedrigste Mindestinvestition vorgibt!
         </div>
 
+        <p id="test"></p>
+
         <table class="table" style="width: 300px">
             <tr>
                 <th> Summe der Beiträge </th>
@@ -101,13 +102,13 @@
 <script>
 
     function contribution_in_range() {
-        if(formInputs.sim_a_participation.value == 1 && contribution_a < lowest_commitment)
+        if(forminputs.sim_a_participation.value == 1 && contribution_a < lowest_commitment)
             return false;
-        if(formInputs.sim_b_participation.value == 1 && contribution_b < lowest_commitment)
+        if(forminputs.sim_b_participation.value == 1 && contribution_b < lowest_commitment)
             return false;
-        if(formInputs.sim_c_participation.value == 1 && contribution_c < lowest_commitment)
+        if(forminputs.sim_c_participation.value == 1 && contribution_c < lowest_commitment)
             return false;
-        if(formInputs.sim_d_participation.value == 1 && contribution_d < lowest_commitment)
+        if(forminputs.sim_d_participation.value == 1 && contribution_d < lowest_commitment)
             return false;
         return true;
     }
@@ -121,7 +122,7 @@
             return false;
         if(contribution_d % 10 != 0)
             return false;
-        if(formInputs.sim_a_commitment.value != "" && parseInt(formInputs.sim_a_commitment.value) % 10 != 0)
+        if(forminputs.sim_a_commitment.value != "" && parseInt(forminputs.sim_a_commitment.value) % 10 != 0)
             return false;
         return true;
     }
@@ -134,66 +135,66 @@
 
         lowest_commitment = "";
 
-        formInputs.sim_a_contribution.value = Math.max(Math.min(parseInt(formInputs.sim_a_contribution.value),800),0);
-        formInputs.sim_b_contribution.value = Math.max(Math.min(parseInt(formInputs.sim_b_contribution.value),800),0);
-        formInputs.sim_c_contribution.value = Math.max(Math.min(parseInt(formInputs.sim_c_contribution.value),800),0);
-        formInputs.sim_d_contribution.value = Math.max(Math.min(parseInt(formInputs.sim_d_contribution.value),800),0);
+        forminputs.sim_a_contribution.value = Math.max(Math.min(parseInt(forminputs.sim_a_contribution.value),800),0);
+        forminputs.sim_b_contribution.value = Math.max(Math.min(parseInt(forminputs.sim_b_contribution.value),800),0);
+        forminputs.sim_c_contribution.value = Math.max(Math.min(parseInt(forminputs.sim_c_contribution.value),800),0);
+        forminputs.sim_d_contribution.value = Math.max(Math.min(parseInt(forminputs.sim_d_contribution.value),800),0);
 
-        if(formInputs.sim_a_contribution.value == "")
+        if(forminputs.sim_a_contribution.value == "")
             contribution_a = 0;
         else
-            contribution_a = parseInt(formInputs.sim_a_contribution.value);
-        if(formInputs.sim_b_contribution.value == "")
+            contribution_a = parseInt(forminputs.sim_a_contribution.value);
+        if(forminputs.sim_b_contribution.value == "")
             contribution_b = 0;
         else
-            contribution_b = parseInt(formInputs.sim_b_contribution.value);
-        if(formInputs.sim_c_contribution.value == "")
+            contribution_b = parseInt(forminputs.sim_b_contribution.value);
+        if(forminputs.sim_c_contribution.value == "")
             contribution_c = 0;
         else
-            contribution_c = parseInt(formInputs.sim_c_contribution.value);
-        if(formInputs.sim_d_contribution.value == "")
+            contribution_c = parseInt(forminputs.sim_c_contribution.value);
+        if(forminputs.sim_d_contribution.value == "")
             contribution_d = 0;
         else
-            contribution_d = parseInt(formInputs.sim_d_contribution.value);
+            contribution_d = parseInt(forminputs.sim_d_contribution.value);
 
-        if(formInputs.sim_a_participation.value == 1) {
-            formInputs.sim_a_commitment.disabled = false;
-            formInputs.sim_a_commitment.value = Math.max(Math.min(parseInt(formInputs.sim_a_commitment.value),800),0);
-            commitment_a = formInputs.sim_a_commitment.value;
+        if(forminputs.sim_a_participation.value == 1) {
+            forminputs.sim_a_commitment.disabled = false;
+            forminputs.sim_a_commitment.value = Math.max(Math.min(parseInt(forminputs.sim_a_commitment.value),800),0);
+            commitment_a = forminputs.sim_a_commitment.value;
         }
         else {
-            formInputs.sim_a_commitment.disabled = true;
-            formInputs.sim_a_commitment.value = "";
+            forminputs.sim_a_commitment.disabled = true;
+            forminputs.sim_a_commitment.value = "";
             commitment_a = 800;
         }
-        if (formInputs.sim_b_participation.value == 1) {
-            formInputs.sim_b_commitment.disabled = false;
-            formInputs.sim_b_commitment.value = Math.max(Math.min(parseInt(formInputs.sim_b_commitment.value),800),0);
-            commitment_b = formInputs.sim_b_commitment.value;
+        if (forminputs.sim_b_participation.value == 1) {
+            forminputs.sim_b_commitment.disabled = false;
+            forminputs.sim_b_commitment.value = Math.max(Math.min(parseInt(forminputs.sim_b_commitment.value),800),0);
+            commitment_b = forminputs.sim_b_commitment.value;
         }
         else {
-            formInputs.sim_b_commitment.disabled = true;
-            formInputs.sim_b_commitment.value = "";
+            forminputs.sim_b_commitment.disabled = true;
+            forminputs.sim_b_commitment.value = "";
             commitment_b = 800;
         }
-        if (formInputs.sim_c_participation.value == 1) {
-            formInputs.sim_c_commitment.disabled = false;
-            formInputs.sim_c_commitment.value = Math.max(Math.min(parseInt(formInputs.sim_c_commitment.value),800),0);
-            commitment_c = formInputs.sim_c_commitment.value;
+        if (forminputs.sim_c_participation.value == 1) {
+            forminputs.sim_c_commitment.disabled = false;
+            forminputs.sim_c_commitment.value = Math.max(Math.min(parseInt(forminputs.sim_c_commitment.value),800),0);
+            commitment_c = forminputs.sim_c_commitment.value;
         }
         else {
-            formInputs.sim_c_commitment.disabled = true;
-            formInputs.sim_c_commitment.value = "";
+            forminputs.sim_c_commitment.disabled = true;
+            forminputs.sim_c_commitment.value = "";
             commitment_c = 800;
         }
-        if (formInputs.sim_d_participation.value == 1) {
-            formInputs.sim_d_commitment.disabled = false;
-            formInputs.sim_d_commitment.value = Math.max(Math.min(parseInt(formInputs.sim_d_commitment.value),800),0);
-            commitment_d = formInputs.sim_d_commitment.value;
+        if (forminputs.sim_d_participation.value == 1) {
+            forminputs.sim_d_commitment.disabled = false;
+            forminputs.sim_d_commitment.value = Math.max(Math.min(parseInt(forminputs.sim_d_commitment.value),800),0);
+            commitment_d = forminputs.sim_d_commitment.value;
         }
         else {
-            formInputs.sim_d_commitment.disabled = true;
-            formInputs.sim_d_commitment.value = "";
+            forminputs.sim_d_commitment.disabled = true;
+            forminputs.sim_d_commitment.value = "";
             commitment_d = 800;
         }
 
@@ -230,18 +231,18 @@
     window.onload = initPlayer;
 
     function initPlayer() {
-		formInputs.sim_a_participation.addEventListener("input", aktualisieren);
-		formInputs.sim_a_commitment.addEventListener("input", aktualisieren);
-		formInputs.sim_a_contribution.addEventListener("input", aktualisieren);
-		formInputs.sim_b_participation.addEventListener("input", aktualisieren);
-		formInputs.sim_b_commitment.addEventListener("input", aktualisieren);
-		formInputs.sim_b_contribution.addEventListener("input", aktualisieren);
-		formInputs.sim_c_participation.addEventListener("input", aktualisieren);
-		formInputs.sim_c_commitment.addEventListener("input", aktualisieren);
-		formInputs.sim_c_contribution.addEventListener("input", aktualisieren);
-		formInputs.sim_d_participation.addEventListener("input", aktualisieren);
-		formInputs.sim_d_commitment.addEventListener("input", aktualisieren);
-		formInputs.sim_d_contribution.addEventListener("input", aktualisieren);
+		forminputs.sim_a_participation.addEventListener("input", aktualisieren);
+		forminputs.sim_a_commitment.addEventListener("input", aktualisieren);
+		forminputs.sim_a_contribution.addEventListener("input", aktualisieren);
+		forminputs.sim_b_participation.addEventListener("input", aktualisieren);
+		forminputs.sim_b_commitment.addEventListener("input", aktualisieren);
+		forminputs.sim_b_contribution.addEventListener("input", aktualisieren);
+		forminputs.sim_c_participation.addEventListener("input", aktualisieren);
+		forminputs.sim_c_commitment.addEventListener("input", aktualisieren);
+		forminputs.sim_c_contribution.addEventListener("input", aktualisieren);
+		forminputs.sim_d_participation.addEventListener("input", aktualisieren);
+		forminputs.sim_d_commitment.addEventListener("input", aktualisieren);
+		forminputs.sim_d_contribution.addEventListener("input", aktualisieren);
 
 		aktualisieren();
     }

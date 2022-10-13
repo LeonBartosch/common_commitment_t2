@@ -76,6 +76,25 @@ class Seriousness_check(Page):
             if player.use_data:
                 with open('LabIds/CountParticipation.txt', 'w') as file:
                     file.write(str(txt))
+        with open('LabIds/CountParticipation_IC.txt', 'r') as file:
+            txt = int(file.read())
+            print(txt)
+            txt += 1
+            print(txt)
+        if (player.participant.label != "123456"):
+            if player.participant.treatment == 'ic_game' and player.use_data:
+                with open('LabIds/CountParticipation_IC.txt', 'w') as file:
+                    file.write(str(txt))
+        with open('LabIds/CountParticipation_CC.txt', 'r') as file:
+            txt = int(file.read())
+            print(txt)
+            txt += 1
+            print(txt)
+        if (player.participant.label != "123456"):
+            if player.participant.treatment == 'cc_game' and player.use_data:
+                with open('LabIds/CountParticipation_CC.txt', 'w') as file:
+                    file.write(str(txt))
+
 
 
 class Debriefing(Page):
