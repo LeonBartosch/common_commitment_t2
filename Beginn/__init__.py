@@ -107,8 +107,12 @@ class Pgg_scenario3(Page):
 
 
 page_sequence = [
-    Begruessung, Informedconsent,
+    Begruessung,
+    Informedconsent,
     Code_Eingabe,
     Ueberleitung,
-    Pgg_scenario1, Pgg_scenario2, Pgg_scenario3
+    Pgg_instructions,
+    Pgg_scenario1,
+    Pgg_scenario2,
+    Pgg_scenario3
            ]

@@ -512,11 +512,13 @@ class Results(Page):
 
 
 page_sequence = [
-    IC_instructions,IC_example,
+    IC_instructions,
+    IC_example,
     Sim_IC,
     IC_compr_check_a, IC_compr_check2_a, IC_compr_check3_a,
     IC_compr_check_b, IC_compr_check2_b, IC_compr_check3_b,
-    Verhandlungsteilnahme, Beliefs,
+    Verhandlungsteilnahme,
+    Beliefs,
     Verhandlungsziel_Waitpage, IC_Verhandlungsziel,
     Chat_Waitpage, IC_Chat, IC_One_neg, No_neg, IC_Last_proposal,
     IC_Contribute,

@@ -111,4 +111,8 @@ class Endpage(Page):
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 
 
-page_sequence = [Seriousness_check, Debriefing, Endpage]
+page_sequence = [
+    Seriousness_check,
+    Debriefing,
+    Endpage
+]
