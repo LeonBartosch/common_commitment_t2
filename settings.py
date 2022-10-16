@@ -5,8 +5,8 @@ SESSION_CONFIGS = [
     dict(
         name='T2',
         display_name="T2",
-        app_sequence=['Beginn', 'group_matching', 'cc_game', 'ic_game', 'Ende'],
-        num_demo_participants=4,
+        app_sequence=['Beginn', 'cc_game', 'ic_game', 'Ende'],
+        num_demo_participants=8,
     ),
 ]
 
@@ -20,7 +20,7 @@ SESSION_CONFIG_DEFAULTS = dict(
 )
 
 PARTICIPANT_FIELDS = [
-    'time_start', 'time_end', 'treatment'
+    'time_start', 'time_end', 'treatment', 'personal_code'
 ]
 SESSION_FIELDS = []
 

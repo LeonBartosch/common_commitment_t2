@@ -67,32 +67,32 @@ class Seriousness_check(Page):
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
         if player.use_data:
             player.srsn_check_pass = True
-        with open('LabIds/CountParticipation.txt', 'r') as file:
+        with open('_static/CountParticipation.txt', 'r') as file:
             txt = int(file.read())
             print(txt)
             txt += 1
             print(txt)
-        if (player.participant.label != "123456"):
+        if (player.participant.code != "123456"):
             if player.use_data:
-                with open('LabIds/CountParticipation.txt', 'w') as file:
+                with open('_static/CountParticipation.txt', 'w') as file:
                     file.write(str(txt))
-        with open('LabIds/CountParticipation_IC.txt', 'r') as file:
+        with open('_static/CountParticipation_IC.txt', 'r') as file:
             txt = int(file.read())
             print(txt)
             txt += 1
             print(txt)
-        if (player.participant.label != "123456"):
+        if (player.participant.personal_code != "123456"):
             if player.participant.treatment == 'ic_game' and player.use_data:
-                with open('LabIds/CountParticipation_IC.txt', 'w') as file:
+                with open('_static/CountParticipation_IC.txt', 'w') as file:
                     file.write(str(txt))
-        with open('LabIds/CountParticipation_CC.txt', 'r') as file:
+        with open('_static/CountParticipation_CC.txt', 'r') as file:
             txt = int(file.read())
             print(txt)
             txt += 1
             print(txt)
-        if (player.participant.label != "123456"):
+        if (player.participant.personal_code != "123456"):
             if player.participant.treatment == 'cc_game' and player.use_data:
-                with open('LabIds/CountParticipation_CC.txt', 'w') as file:
+                with open('_static/CountParticipation_CC.txt', 'w') as file:
                     file.write(str(txt))
 
 

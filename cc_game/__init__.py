@@ -25,25 +25,25 @@ class Group(BaseGroup):
     total_contribution = models.CurrencyField()
     individual_share = models.CurrencyField()
     public_good_total = models.CurrencyField()
-#    lowest_proposer = models.StringField()
+    lowest_proposer = models.StringField()
     lowest_proposal = models.CurrencyField()
     num_negotiators = models.FloatField()
     num_contributed = models.FloatField()
 
 
 class Player(BasePlayer):
-    sim_a_participation = models.IntegerField(choices=[[1, 'Ja'], [2, 'Nein'], ], blank=True)
-    sim_b_participation = models.IntegerField(choices=[[1, 'Ja'], [2, 'Nein'], ], blank=True)
-    sim_c_participation = models.IntegerField(choices=[[1, 'Ja'], [2, 'Nein'], ], blank=True)
-    sim_d_participation = models.IntegerField(choices=[[1, 'Ja'], [2, 'Nein'], ], blank=True)
+    sim_a_participation = models.IntegerField(choices=[[1, 'Ja'], [2, 'Nein'], ])
+    sim_b_participation = models.IntegerField(choices=[[1, 'Ja'], [2, 'Nein'], ])
+    sim_c_participation = models.IntegerField(choices=[[1, 'Ja'], [2, 'Nein'], ])
+    sim_d_participation = models.IntegerField(choices=[[1, 'Ja'], [2, 'Nein'], ])
     sim_a_commitment = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
     sim_b_commitment = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
     sim_c_commitment = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
     sim_d_commitment = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
-    sim_a_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
-    sim_b_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
-    sim_c_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
-    sim_d_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
+    sim_a_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
+    sim_b_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
+    sim_c_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
+    sim_d_contribution = models.CurrencyField(min=0, max=C.ENDOWMENT)
     compr_check_a_pass = models.BooleanField(
         initial=False)
     compr_a1 = models.CurrencyField(min=0, max=C.ENDOWMENT, blank=True)
@@ -102,6 +102,7 @@ class Player(BasePlayer):
         blank=True,
     )
     beliefs = models.IntegerField(choices=[-1, 0, 1, 2, 3],)
+    T2_payoff = models.CurrencyField()
 
 
 class Minimum(ExtraModel):
@@ -111,6 +112,14 @@ class Minimum(ExtraModel):
 
 
 # FUNCTIONS
+def group_by_arrival_time_method(player, waiting_players):
+    if len(waiting_players) >= 4:
+        p1 = waiting_players[0]
+        p2 = waiting_players[1]
+        p3 = waiting_players[2]
+        p4 = waiting_players[3]
+        return [p1, p2, p3, p4]
+
 def custom_export(players):
     # header row
     yield ['session', 'group', 'id_in_group', 'participant', 'amount', 'time']
@@ -124,15 +133,15 @@ def custom_export(players):
 def set_minimum(group):
     players = group.get_players()
     group.lowest_proposal = 800
-#    group.lowest_proposer = ""
-#    for p in players:
-#        if p.teilnahme:
-#            if p.last_proposal < group.lowest_proposal:
-#                group.lowest_proposal = p.last_proposal
-#                if group.lowest_proposer== "":
-#                    group.lowest_proposer = "Person "+ str(p.id_in_group)
-#                else:
-#                    group.lowest_proposer += " und Person " + str(p.id_in_group)
+    group.lowest_proposer = ""
+    for p in players:
+        if p.teilnahme:
+            if p.last_proposal < group.lowest_proposal:
+                group.lowest_proposal = p.last_proposal
+                if group.lowest_proposer== "":
+                    group.lowest_proposer = "Person "+ str(p.id_in_group)
+                else:
+                    group.lowest_proposer += " und Person " + str(p.id_in_group)
 
 
 def set_payoffs(group: Group):
@@ -146,7 +155,7 @@ def set_payoffs(group: Group):
         group.total_contribution * C.MULTIPLIER / C.PLAYERS_PER_GROUP
     )
     for p in players:
-        p.payoff = C.ENDOWMENT - p.contribution + group.individual_share
+        p.T2_payoff = C.ENDOWMENT - p.contribution + group.individual_share
 
 
 def set_participants(group: Group):
@@ -165,6 +174,11 @@ def set_contributors(group: Group):
 
 
 # PAGES
+class CC_GroupingWaitPage(WaitPage):
+    group_by_arrival_time = True
+    def before_next_page(player, timeout_happened):
+        import datetime
+        player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 
 class CC_instructions(Page):
     def before_next_page(player, timeout_happened):
@@ -226,7 +240,7 @@ class CC_compr_check2_a(Page):
     def before_next_page(player, timeout_happened):
         if (player.compr_a1 == 300 or player.compr2_a1 == 300) \
                 and (player.compr_a2 == 300 or player.compr2_a2 == 300) \
-                and (player.compr_a3 == 100 or player.compr2_a3 == 800) \
+                and (player.compr_a3 == 800 or player.compr2_a3 == 800) \
                 and (player.compr_a4 == 300 or player.compr2_a4 == 300) \
                 and (player.compr_a5 == 100 or player.compr2_a5 == 100) \
                 and (player.compr_a6 == 500 or player.compr2_a6 == 500):
@@ -402,8 +416,10 @@ class CC_Chat(Page):
         with open('_static/chat/cc_chat.csv', mode='a') as csvfile:
             chat = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             chat.writerow(
-                [player.session.code, player.group.id_in_subsession, player.id_in_group, player.participant.label,
-                 datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S"), bid])
+                [player.session.code, player.group.id_in_subsession, player.id_in_group,
+                 player.participant.personal_code,
+                 datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S"), bid]
+            )
         # with open('_static/chat/cc_chat.csv', mode='r+') as file:
         # lines = file.readlines()
         # file.seek(0)
@@ -540,13 +556,15 @@ class Results(Page):
         with open('payoffs_T1.csv', mode='r') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=';')
             for row in csv_reader:
-                if row[0] == player.participant.label:
-                    T1_payoff = cu(row[1]).to_real_world_currency(player.session)
-        total_payoff = T1_payoff + player.participant.payoff_plus_participation_fee()
+                if row[0] == player.participant.personal_code:
+                    T1_payoff = cu(row[1])
+                    T1_payoff_euro = cu(row[1]).to_real_world_currency(player.session)
+                    T2_payoff_euro = cu(player.T2_payoff).to_real_world_currency(player.session)
+        player.participant.payoff = T1_payoff + player.T2_payoff
         return dict(
             others=player.get_others_in_group(),
-            T1_payoff=T1_payoff,
-            total_payoff=total_payoff
+            T1_payoff_euro=T1_payoff_euro,
+            T2_payoff_euro = T2_payoff_euro
         )
 
     @staticmethod
@@ -556,17 +574,18 @@ class Results(Page):
 
 
 page_sequence = [
-    CC_instructions,
-    CC_example,
-    Sim_CC,
-    CC_compr_check_a,
-    CC_compr_check2_a,
-    CC_compr_check3_a,
-    CC_compr_check_b,
-    CC_compr_check2_b,
-    CC_compr_check3_b,
+#    CC_GroupingWaitPage,
+#    CC_instructions,
+#    CC_example,
+#    Sim_CC,
+#    CC_compr_check_a,
+#    CC_compr_check2_a,
+#    CC_compr_check3_a,
+#    CC_compr_check_b,
+#    CC_compr_check2_b,
+#    CC_compr_check3_b,
     Verhandlungsteilnahme,
-    Beliefs,
+#    Beliefs,
     Verhandlungsziel_Waitpage,
     CC_Verhandlungsziel,
     Chat_Waitpage,

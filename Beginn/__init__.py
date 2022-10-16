@@ -1,5 +1,6 @@
 from otree.api import *
-
+from string import digits
+from string import ascii_letters
 
 doc = """
 Your app description
@@ -50,7 +51,7 @@ class Einwilligung(Page):
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
 
-        #with open('LabIds/Participated.txt', 'a') as file:
+        #with open('_static/Participated.txt', 'a') as file:
             #if(player.participant.label != "1234555"):
                 #file.write('\n')
                 #file.write(player.participant.label)
@@ -64,15 +65,21 @@ class Code_Eingabe(Page):
     def error_message(player, values):
         if len(values['code']) !=6:
             return 'Ihr Code muss sechsstellig sein'
-        with open('LabIds/Participated.txt', 'r') as file:
+        with open('_static/Participated.txt', 'r') as file:
             txt = file.read()
         if (values['code'] not in txt and values['code'] != "123456"):
-            return "Bitte überprüfen Sie Ihren Code und geben denselben Code wie in Studienteil 1 an."
+            return "Bitte überprüfen Sie Ihren Code und geben Sie den Code wie in Studienteil 1 an."
+
+        if any([c not in digits for c in values['code'][4:6]]):
+            return "Bitte geben Sie Ihren Code im korrekten Format an"
+
+        if any([c not in ascii_letters for c in values['code'][0:4]]):
+            return "Bitte geben Sie Ihren Code im korrekten Format an"
 
     def before_next_page(player, timeout_happened):
         import datetime
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
-        player.participant.label = player.code
+        player.participant.personal_code = player.code
 
 
 class Ueberleitung(Page):
@@ -107,12 +114,12 @@ class Pgg_scenario3(Page):
 
 
 page_sequence = [
-    Begruessung,
-    Informedconsent,
+#    Begruessung,
+#    Informedconsent,
     Code_Eingabe,
-    Ueberleitung,
-    Pgg_instructions,
-    Pgg_scenario1,
-    Pgg_scenario2,
-    Pgg_scenario3
+#    Ueberleitung,
+#    Pgg_instructions,
+#    Pgg_scenario1,
+#    Pgg_scenario2,
+#    Pgg_scenario3
            ]
