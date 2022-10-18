@@ -103,6 +103,7 @@ class Player(BasePlayer):
     )
     beliefs = models.IntegerField(choices=[-1, 0, 1, 2, 3],)
     T2_payoff = models.CurrencyField()
+    T1_payoff = models.CurrencyField()
 
 
 class Minimum(ExtraModel):
@@ -196,7 +197,13 @@ class Sim_CC(Page):
     form_model = 'player'
     form_fields = ['sim_a_participation', 'sim_b_participation', 'sim_c_participation', 'sim_d_participation',
                    'sim_a_commitment', 'sim_b_commitment', 'sim_c_commitment', 'sim_d_commitment',
-                   'sim_a_contribution', 'sim_b_contribution','sim_c_contribution','sim_d_contribution']
+                   'sim_a_contribution', 'sim_b_contribution', 'sim_c_contribution', 'sim_d_contribution']
+
+    @staticmethod
+    def error_message(player: Player, values):
+        if values['sim_a_contribution'] % 10 != 0 or values['sim_b_contribution'] % 10 != 0 \
+                or values['sim_c_contribution'] % 10 != 0 or values['sim_d_contribution'] % 10 != 0:
+            return 'Bitte geben Sie durch 10 teilbare Beiträge an.'
 
     def before_next_page(player, timeout_happened):
         import datetime
@@ -561,6 +568,7 @@ class Results(Page):
                     T1_payoff_euro = cu(row[1]).to_real_world_currency(player.session)
                     T2_payoff_euro = cu(player.T2_payoff).to_real_world_currency(player.session)
         player.participant.payoff = T1_payoff + player.T2_payoff
+        player.T1_payoff = T1_payoff
         return dict(
             others=player.get_others_in_group(),
             T1_payoff_euro=T1_payoff_euro,
@@ -574,18 +582,18 @@ class Results(Page):
 
 
 page_sequence = [
-#    CC_GroupingWaitPage,
-#    CC_instructions,
-#    CC_example,
-#    Sim_CC,
-#    CC_compr_check_a,
-#    CC_compr_check2_a,
-#    CC_compr_check3_a,
-#    CC_compr_check_b,
-#    CC_compr_check2_b,
-#    CC_compr_check3_b,
+    CC_GroupingWaitPage,
+    CC_instructions,
+    CC_example,
+    Sim_CC,
+    CC_compr_check_a,
+    CC_compr_check2_a,
+    CC_compr_check3_a,
+    CC_compr_check_b,
+    CC_compr_check2_b,
+    CC_compr_check3_b,
     Verhandlungsteilnahme,
-#    Beliefs,
+    Beliefs,
     Verhandlungsziel_Waitpage,
     CC_Verhandlungsziel,
     Chat_Waitpage,

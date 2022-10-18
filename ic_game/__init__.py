@@ -91,11 +91,12 @@ class Player(BasePlayer):
         label="Möchten Sie an der Verhandlung über einen gemeinsamen Mindestbeitrag teilnehmen?"
     )
     filler_motives = models.LongStringField(
-        label='Bitte beschreiben Sie im hier, warum Sie sich gegen eine Teilnahme an der Verhandlung entschieden haben:',
+        label='Bitte beschreiben Sie hier, warum Sie sich gegen eine Teilnahme an der Verhandlung entschieden haben:',
         blank=True,
     )
     beliefs = models.IntegerField(choices=[-1, 0, 1, 2, 3], )
     T2_payoff = models.CurrencyField()
+    T1_payoff = models.CurrencyField()
 
 class Minimum(ExtraModel):
     player = models.Link(Player)
@@ -175,6 +176,12 @@ class Sim_IC(Page):
     form_fields = ['sim_a_participation', 'sim_b_participation', 'sim_c_participation', 'sim_d_participation',
                    'sim_a_commitment', 'sim_b_commitment', 'sim_c_commitment', 'sim_d_commitment',
                    'sim_a_contribution', 'sim_b_contribution', 'sim_c_contribution', 'sim_d_contribution']
+
+    @staticmethod
+    def error_message(player: Player, values):
+        if values['sim_a_contribution'] % 10 != 0 or values['sim_b_contribution'] % 10 != 0 \
+                or values['sim_c_contribution'] % 10 != 0 or values['sim_d_contribution'] % 10 != 0:
+            return 'Bitte geben Sie durch 10 teilbare Beiträge an.'
 
     def before_next_page(player, timeout_happened):
         import datetime
@@ -513,6 +520,7 @@ class Results(Page):
 
     @staticmethod
     def vars_for_template(player: Player):
+        set_payoffs(player.group)
         with open('payoffs_T1.csv', mode='r') as csv_file:
             csv_reader = csv.reader(csv_file, delimiter=';')
             for row in csv_reader:
@@ -521,6 +529,7 @@ class Results(Page):
                     T1_payoff_euro = cu(row[1]).to_real_world_currency(player.session)
                     T2_payoff_euro = cu(player.T2_payoff).to_real_world_currency(player.session)
         player.participant.payoff = T1_payoff + player.T2_payoff
+        player.T1_payoff = T1_payoff
         return dict(
             others=player.get_others_in_group(),
             T1_payoff_euro=T1_payoff_euro,

@@ -8,7 +8,7 @@
 
     <p>
         {{ if player.teilnahme == False and player.group.num_negotiators >= 1 }}
-        Die folgenden Mitglieder Ihrer Gruppe hatten sich für eine Verhandlung entschieden:
+        Die folgenden Mitglieder Ihrer Gruppe haben sich für eine Verhandlung entschieden:
         <ol class="a">
             {{ if p1_participated }} <li> Person A </li> {{ endif }}
             {{ if p2_participated }} <li> Person B </li> {{ endif }}
@@ -27,7 +27,7 @@
 
 <p>
     {{ if player.teilnahme == True and player.group.num_negotiators >= 2 }}
-        Sie können also nun einen beliebigen Betrag zwischen {{ group.lowest_proposal}} und {{ C.ENDOWMENT }} (in
+        Sie können nun einen beliebigen Betrag zwischen {{ group.lowest_proposal}} und {{ C.ENDOWMENT }} (in
         10-Cent-Schritten; also 0, 10, 20, 30, … 790, 800 Cent) beitragen.
     {{ else }}
         Sie können also nun einen beliebigen Betrag zwischen 0 und {{ C.ENDOWMENT }} (in 10-Cent-Schritten; also 0, 10, 20,

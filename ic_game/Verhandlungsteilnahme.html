@@ -24,10 +24,19 @@
 </div>
 <div class="slidecontainer">
 			{{ formfield_errors 'willingness' }}
-            Bitte geben Sie auf dem folgenden Schieberegler Ihre Bereitschaft, an der Verhandlung teilzunehmen, an:<br>
-			<i>Ich möchte auf gar keinen Fall </i> &nbsp;
-			<input name="willingness" min="0" max="100" value="50" type="range" style="width:300px;"/>
-			&nbsp; <i>auf jeden Fall     an der Verhandlung teilnehmen</i>
+            Bitte geben Sie auf dem folgenden Schieberegler ihre Bereitschaft, an der Verhandlung teilzunehmen, an:<br>
+			<br>
+            <table>
+                <th style="width:300px; text-align: right;">
+                    <i>Ich möchte auf gar keinen Fall an <br> der Verhandlung teilnehmen</i>
+                </th>
+                <th style="width:350px; text-align: center">
+                    <input name="willingness" min="0" max="100" value="50" type="range" style="width:300px;"/>
+                </th>
+                <th style="width:300px; text-align: left;">
+                    <i>Ich möchte auf jeden Fall an der Verhandlung teilnehmen</i>
+                </th>
+            </table>
 </div>
 <br>
 <p>
