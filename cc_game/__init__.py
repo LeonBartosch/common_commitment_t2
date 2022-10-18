@@ -451,7 +451,7 @@ class One_neg(Page):
         player.participant.time_end = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S")
     @staticmethod
     def is_displayed(player):
-        return player.group.num_negotiators == 1 and player.teilnahme == True
+        return player.group.num_negotiators == 1
 
 
 class No_neg(Page):
